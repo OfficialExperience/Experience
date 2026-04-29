@@ -122,7 +122,7 @@
 
     }
 
-    /* DOMANDA 1 */
+    /* DOMANDA */
 
     .question {
 
@@ -256,7 +256,7 @@
 
     }
 
-    /* 🆕 BOX COMMENTO */
+    /* BOX COMMENTO */
 
     .comment-box {
 
@@ -289,6 +289,40 @@
     .comment-box:focus {
 
       background: rgba(0,0,0,0.08);
+
+    }
+
+    /* 🆕 BOTTONE */
+
+    .submit-btn {
+
+      width: 85%;
+
+      margin-top: 15px;
+
+      padding: 16px;
+
+      border-radius: 18px;
+
+      border: none;
+
+      background: black;
+
+      color: white;
+
+      font-size: 20px;
+
+      cursor: pointer;
+
+      transition: transform 0.15s ease, opacity 0.2s ease;
+
+    }
+
+    .submit-btn:active {
+
+      transform: scale(0.96);
+
+      opacity: 0.85;
 
     }
 
@@ -358,8 +392,6 @@
 
     </div>
 
-    <!-- 🆕 AREA SCRITTURA -->
-
     <textarea 
 
       class="comment-box" 
@@ -367,6 +399,14 @@
       placeholder="Scrivi qui la tua esperienza..."
 
     ></textarea>
+
+    <!-- 🆕 BOTTONE -->
+
+    <button class="submit-btn">
+
+      →
+
+    </button>
 
   </div>
 
