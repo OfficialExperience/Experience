@@ -4,329 +4,375 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Feedback</title>
+<title>Feedback</title>
 
-  <style>
+<style>
 
-    body {
+body {
 
-      margin: 0;
+  margin: 0;
 
-      background: white;
+  background: white;
 
-      font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 
-      display: flex;
+  display: flex;
 
-      justify-content: center;
+  justify-content: center;
 
-      align-items: center;
+  align-items: center;
 
-      height: 100vh;
+  height: 100vh;
 
-      overflow: hidden;
+  overflow: hidden;
 
-    }
+}
 
-    .container {
+.container {
 
-      width: 100%;
+  width: 100%;
 
-      max-width: 400px;
+  max-width: 400px;
 
-      text-align: center;
+  text-align: center;
 
-      position: relative;
+  position: relative;
 
-    }
+}
 
-    /* LOGO */
+/* LOGO */
 
-    .logo-wrapper {
+.logo-wrapper {
 
-      position: relative;
+  position: relative;
 
-      display: inline-block;
+  display: inline-block;
 
-    }
+}
 
-    .logo {
+.logo {
 
-      width: 110px;
+  width: 110px;
 
-      display: block;
+  display: block;
 
-    }
+}
 
-    /* LUCE */
+/* LUCE */
 
-    .shine {
+.shine {
 
-      position: absolute;
+  position: absolute;
 
-      top: 0;
+  top: 0;
 
-      left: -100%;
+  left: -100%;
 
-      width: 100%;
+  width: 100%;
 
-      height: 100%;
+  height: 100%;
 
-      background: linear-gradient(
+  background: linear-gradient(
 
-        120deg,
+    120deg,
 
-        transparent 0%,
+    transparent 0%,
 
-        rgba(255,255,255,0.8) 50%,
+    rgba(255,255,255,0.8) 50%,
 
-        transparent 100%
+    transparent 100%
 
-      );
+  );
 
-      animation: shineMove 1.5s ease forwards;
+  animation: shineMove 1.5s ease forwards;
 
-    }
+}
 
-    @keyframes shineMove {
+@keyframes shineMove {
 
-      0% { left: -100%; }
+  0% { left: -100%; }
 
-      100% { left: 100%; }
+  100% { left: 100%; }
 
-    }
+}
 
-    /* SCOMPARSA LOGO */
+/* SCOMPARSA LOGO */
 
-    .fade-out {
+.fade-out {
 
-      animation: fadeOut 0.8s ease forwards;
+  animation: fadeOut 0.8s ease forwards;
 
-      animation-delay: 1.5s;
+  animation-delay: 1.5s;
 
-    }
+}
 
-    @keyframes fadeOut {
+@keyframes fadeOut {
 
-      to {
+  to {
 
-        opacity: 0;
+    opacity: 0;
 
-        transform: scale(1.1);
+    transform: scale(1.1);
 
-      }
+  }
 
-    }
+}
 
-    /* DOMANDA */
+/* DOMANDA */
 
-    .question {
+.question {
 
-      position: absolute;
+  position: absolute;
 
-      top: -180%;
+  top: -180%;
 
-      left: 50%;
+  left: 50%;
 
-      transform: translateX(-50%);
+  transform: translateX(-50%);
 
-      opacity: 0;
+  opacity: 0;
 
-      font-size: 22px;
+  font-size: 22px;
 
-      white-space: nowrap;
+  white-space: nowrap;
 
-      font-weight: bold;
+  font-weight: bold;
 
-      animation: fadeIn 1s ease forwards;
+  animation: fadeIn 1s ease forwards;
 
-      animation-delay: 2.3s;
+  animation-delay: 2.3s;
 
-    }
+}
 
-    @keyframes fadeIn {
+@keyframes fadeIn {
 
-      to { opacity: 1; }
+  to { opacity: 1; }
 
-    }
+}
 
-    /* CARDS */
+/* CARDS */
 
-    .cards {
+.cards {
 
-      position: absolute;
+  position: absolute;
 
-      top: -80%;
+  top: -80%;
 
-      width: 100%;
+  width: 100%;
 
-      display: flex;
+  display: flex;
 
-      flex-direction: column;
+  flex-direction: column;
 
-      align-items: center;
+  align-items: center;
 
-      opacity: 0;
+  opacity: 0;
 
-      animation: fadeIn 1s ease forwards;
+  animation: fadeIn 1s ease forwards;
 
-      animation-delay: 2.8s;
+  animation-delay: 2.8s;
 
-    }
+}
 
-    .card {
+.card {
 
-      width: 82%;
+  width: 82%;
 
-      display: flex;
+  display: flex;
 
-      align-items: center;
+  align-items: center;
 
-      justify-content: space-between;
+  justify-content: space-between;
 
-      padding: 28px 22px;
+  padding: 28px 22px;
 
-      margin: 14px 0;
+  margin: 14px 0;
 
-      border-radius: 20px;
+  border-radius: 20px;
 
-      background: rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.05);
 
-      backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 
-      cursor: pointer;
+  cursor: pointer;
 
-      transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 
-    }
+}
 
-    .card:hover {
+.card:hover {
 
-      transform: scale(1.05);
+  transform: scale(1.05);
 
-      background: rgba(0,0,0,0.08);
+  background: rgba(0,0,0,0.08);
 
-    }
+}
 
-    .card img {
+.card img {
 
-      width: 70px;
+  width: 70px;
 
-      height: 70px;
+  height: 70px;
 
-    }
+}
 
-    .card span {
+.card span {
 
-      flex: 1;
+  flex: 1;
 
-      text-align: right;
+  text-align: right;
 
-      font-size: 17px;
+  font-size: 17px;
 
-      font-weight: bold;
+  font-weight: bold;
 
-    }
+}
 
-    /* SCHERMATA 2 */
+/* SCHERMATA 2 */
 
-    .hidden {
+.hidden {
 
-      display: none;
+  display: none;
 
-    }
+}
 
-    .comment-screen {
+.comment-screen {
 
-      font-size: 22px;
+  font-size: 22px;
 
-      font-weight: bold;
+  font-weight: bold;
 
-      opacity: 0;
+  opacity: 0;
 
-      animation: fadeIn 1s ease forwards;
+  animation: fadeIn 1s ease forwards;
 
-      position: relative;
+  position: relative;
 
-      top: -205px;
+  top: -180px;
 
-    }
+}
 
-    /* BOX COMMENTO */
+/* CONTENITORE SECONDA SCHERMATA */
 
-    .comment-box {
+.second-container {
 
-      width: 85%;
+  margin-top: -150px; /* controlli tutto da qui */
 
-      margin-top: -180px;
+  display: flex;
 
-      padding: 15px;
+  flex-direction: column;
 
-      border-radius: 18px;
+  align-items: center;
 
-      border: none;
+}
 
-      outline: none;
+/* BOX COMMENTO */
 
-      background: rgba(0,0,0,0.05);
+.comment-box {
 
-      backdrop-filter: blur(6px);
+  width: 85%;
 
-      font-size: 16px;
+  padding: 15px;
 
-      resize: none;
+  border-radius: 18px;
 
-      height: 120px;
+  border: none;
 
-      transition: 0.2s;
+  outline: none;
 
-    }
+  background: rgba(0,0,0,0.05);
 
-    .comment-box:focus {
+  backdrop-filter: blur(6px);
 
-      background: rgba(0,0,0,0.08);
+  font-size: 16px;
 
-    }
+  resize: none;
 
-    /* 🆕 BOTTONE */
+  height: 120px;
 
-    .submit-btn {
+  transition: 0.2s;
 
-      width: 85%;
+}
 
-      margin-top: 15px;
+.comment-box:focus {
 
-      padding: 16px;
+  background: rgba(0,0,0,0.08);
 
-      border-radius: 18px;
+}
 
-      border: none;
+/* BOTTONE INVIO */
 
-      background: black;
+.submit-btn {
 
-      color: white;
+  width: 85%;
 
-      font-size: 20px;
+  margin-top: 15px;
 
-      cursor: pointer;
+  padding: 16px;
 
-      transition: transform 0.15s ease, opacity 0.2s ease;
+  border-radius: 18px;
 
-    }
+  border: none;
 
-    .submit-btn:active {
+  background: black;
 
-      transform: scale(0.96);
+  color: white;
 
-      opacity: 0.85;
+  font-size: 20px;
 
-    }
+  cursor: pointer;
 
-  </style>
+  transition: transform 0.15s ease, opacity 0.2s ease;
+
+}
+
+.submit-btn:active {
+
+  transform: scale(0.96);
+
+  opacity: 0.85;
+
+}
+
+/* NON COMMENTO PERFETTAMENTE ALLINEATO */
+
+.skip-btn {
+
+  width: 85%;
+
+  margin-top: 18px; /* più in basso */
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  background: rgba(0,0,0,0.05);
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  transition: transform 0.15s ease, background 0.2s ease;
+
+}
+
+.skip-btn:active {
+
+  transform: scale(0.96);
+
+  background: rgba(0,0,0,0.08);
+
+}
+
+</style>
 
 </head>
 
@@ -334,63 +380,67 @@
 
 <div class="container">
 
-  <!-- SCHERMATA 1 -->
+<!-- SCHERMATA 1 -->
 
-  <div id="screen1">
+<div id="screen1">
 
-    <div class="logo-wrapper fade-out">
+  <div class="logo-wrapper fade-out">
 
-      <img src="logo.png" class="logo">
+    <img src="logo.png" class="logo">
 
-      <div class="shine"></div>
+    <div class="shine"></div>
+
+  </div>
+
+  <div class="question">
+
+    Esperienza oggi all’università?
+
+  </div>
+
+  <div class="cards">
+
+    <div class="card" onclick="nextStep()">
+
+      <img src="logo1.png">
+
+      <span>Mi piace</span>
 
     </div>
 
-    <div class="question">
+    <div class="card" onclick="nextStep()">
 
-      Esperienza oggi all’università?
+      <img src="logo2.png">
+
+      <span>Discreta</span>
 
     </div>
 
-    <div class="cards">
+    <div class="card" onclick="nextStep()">
 
-      <div class="card" onclick="nextStep()">
+      <img src="logo3.png">
 
-        <img src="logo1.png">
-
-        <span>Mi piace</span>
-
-      </div>
-
-      <div class="card" onclick="nextStep()">
-
-        <img src="logo2.png">
-
-        <span>Discreta</span>
-
-      </div>
-
-      <div class="card" onclick="nextStep()">
-
-        <img src="logo3.png">
-
-        <span>Non mi piace</span>
-
-      </div>
+      <span>Non mi piace</span>
 
     </div>
 
   </div>
 
-  <!-- SCHERMATA 2 -->
+</div>
 
-  <div id="screen2" class="hidden">
+<!-- SCHERMATA 2 -->
 
-    <div class="comment-screen">
+<div id="screen2" class="hidden">
 
-      Commenterai la tua esperienza ?
+  <div class="comment-screen">
 
-    </div>
+    Commenterai la tua esperienza ?
+
+  </div>
+
+  <!-- CONTENITORE ALLINEATO -->
+
+  <div class="second-container">
 
     <textarea 
 
@@ -400,27 +450,33 @@
 
     ></textarea>
 
-    <!-- 🆕 BOTTONE -->
-
     <button class="submit-btn">
 
       →
 
     </button>
 
+    <div class="skip-btn">
+
+      Non commento
+
+    </div>
+
   </div>
+
+</div>
 
 </div>
 
 <script>
 
-  function nextStep() {
+function nextStep() {
 
-    document.getElementById("screen1").style.display = "none";
+  document.getElementById("screen1").style.display = "none";
 
-    document.getElementById("screen2").classList.remove("hidden");
+  document.getElementById("screen2").classList.remove("hidden");
 
-  }
+}
 
 </script>
 
