@@ -396,7 +396,9 @@ body {
 
   <div class="cards">
 
-    <div class="card" onclick="nextStep()">
+    <!-- 👇 QUI PASSIAMO IL VALORE -->
+
+    <div class="card" onclick="nextStep('Mi piace')">
 
       <img src="logo1.png">
 
@@ -404,7 +406,7 @@ body {
 
     </div>
 
-    <div class="card" onclick="nextStep()">
+    <div class="card" onclick="nextStep('Discreta')">
 
       <img src="logo2.png">
 
@@ -412,7 +414,7 @@ body {
 
     </div>
 
-    <div class="card" onclick="nextStep()">
+    <div class="card" onclick="nextStep('Non mi piace')">
 
       <img src="logo3.png">
 
@@ -468,7 +470,7 @@ from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDot8DBEW_09WAIEPiatS8Nqoc8qd9SN04",
+  apiKey: "AIza...",
 
   authDomain: "experience-3edff.firebaseapp.com",
 
@@ -478,9 +480,7 @@ const firebaseConfig = {
 
   messagingSenderId: "212033191603",
 
-  appId: "1:212033191603:web:3060de28539b9824c53ac6",
-
-  measurementId: "G-SZCB3NJMNR"
+  appId: "1:212033191603:web:3060de28539b9824c53ac6"
 
 };
 
@@ -488,9 +488,15 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
+/* 🆕 SALVIAMO LA SCELTA */
+
+let sceltaUtente = "";
+
 /* PASSAGGIO SCHERMATA */
 
-window.nextStep = function () {
+window.nextStep = function (scelta) {
+
+  sceltaUtente = scelta; // 👈 SALVA SCELTA
 
   document.getElementById("screen1").style.display = "none";
 
@@ -509,6 +515,8 @@ window.sendFeedback = async function () {
     await addDoc(collection(db, "feedback"), {
 
       text: text,
+
+      scelta: sceltaUtente, // 👈 SALVIAMO SCELTA
 
       timestamp: serverTimestamp()
 
