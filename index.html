@@ -256,7 +256,7 @@ body {
 
 }
 
-/* CONTENITORE SECONDA SCHERMATA */
+/* CONTENITORE */
 
 .second-container {
 
@@ -294,17 +294,9 @@ body {
 
   height: 120px;
 
-  transition: 0.2s;
-
 }
 
-.comment-box:focus {
-
-  background: rgba(0,0,0,0.08);
-
-}
-
-/* BOTTONE INVIO */
+/* BOTTONE */
 
 .submit-btn {
 
@@ -326,19 +318,7 @@ body {
 
   cursor: pointer;
 
-  transition: transform 0.15s ease, opacity 0.2s ease;
-
 }
-
-.submit-btn:active {
-
-  transform: scale(0.96);
-
-  opacity: 0.85;
-
-}
-
-/* NON COMMENTO */
 
 .skip-btn {
 
@@ -358,21 +338,9 @@ body {
 
   cursor: pointer;
 
-  text-align: center;
-
-  transition: transform 0.15s ease, background 0.2s ease;
-
 }
 
-.skip-btn:active {
-
-  transform: scale(0.96);
-
-  background: rgba(0,0,0,0.08);
-
-}
-
-/* 🆕 SCHERMATA FINALE */
+/* FINALE */
 
 #thankYou {
 
@@ -397,8 +365,6 @@ body {
   font-size: 24px;
 
   font-weight: bold;
-
-  animation: fadeIn 0.6s ease;
 
 }
 
@@ -470,19 +436,13 @@ body {
 
   <div class="second-container">
 
-    <textarea class="comment-box" placeholder="Scrivi qui la tua esperienza..."></textarea>
+    <textarea id="feedbackText" class="comment-box"
 
-    <button class="submit-btn" onclick="sendFeedback()">
+      placeholder="Scrivi qui la tua esperienza..."></textarea>
 
-      →
+    <button class="submit-btn" onclick="sendFeedback()">→</button>
 
-    </button>
-
-    <div class="skip-btn" onclick="sendFeedback()">
-
-      Non commento
-
-    </div>
+    <div class="skip-btn" onclick="sendFeedback()">Non commento</div>
 
   </div>
 
@@ -490,33 +450,81 @@ body {
 
 </div>
 
-<!-- 🆕 SCHERMATA FINALE -->
-
 <div id="thankYou">
 
   Grazie per il feedback 😃
 
 </div>
 
-<script>
+<!-- 🔥 FIREBASE -->
 
-function nextStep() {
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import { getFirestore, collection, addDoc, serverTimestamp } 
+
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyDot8DBEW_09WAIEPiatS8Nqoc8qd9SN04",
+
+  authDomain: "experience-3edff.firebaseapp.com",
+
+  projectId: "experience-3edff",
+
+  storageBucket: "experience-3edff.appspot.com",
+
+  messagingSenderId: "212033191603",
+
+  appId: "1:212033191603:web:3060de28539b9824c53ac6",
+
+  measurementId: "G-SZCB3NJMNR"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+/* PASSAGGIO SCHERMATA */
+
+window.nextStep = function () {
 
   document.getElementById("screen1").style.display = "none";
 
   document.getElementById("screen2").classList.remove("hidden");
 
-}
+};
 
-/* 🆕 INVIO */
+/* INVIO FEEDBACK */
 
-function sendFeedback() {
+window.sendFeedback = async function () {
 
-  document.getElementById("screen2").style.display = "none";
+  const text = document.getElementById("feedbackText").value;
 
-  document.getElementById("thankYou").style.display = "flex";
+  try {
 
-}
+    await addDoc(collection(db, "feedback"), {
+
+      text: text,
+
+      timestamp: serverTimestamp()
+
+    });
+
+    document.getElementById("screen2").style.display = "none";
+
+    document.getElementById("thankYou").style.display = "flex";
+
+  } catch (e) {
+
+    console.error("Errore invio:", e);
+
+  }
+
+};
 
 </script>
 
