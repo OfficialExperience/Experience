@@ -234,7 +234,7 @@ body {
 
 .tags-container {
 
-  margin-top: -150px;
+  margin-top: -120px;
 
   display: flex;
 
@@ -242,17 +242,17 @@ body {
 
   align-items: center;
 
-  gap: 12px;
+  gap: 14px;
 
 }
 
 .tag {
 
-  width: 85%;
+  width: 80%;
 
   padding: 16px;
 
-  border-radius: 20px;
+  border-radius: 18px;
 
   background: rgba(0,0,0,0.05);
 
@@ -268,9 +268,7 @@ body {
 
 .tag:hover {
 
-  background: black;
-
-  color: white;
+  background: rgba(0,0,0,0.08);
 
 }
 
@@ -294,13 +292,13 @@ body {
 
   position: relative;
 
-  top: -174px;
+  top: -156px;
 
 }
 
 .second-container {
 
-  margin-top: -150px;
+  margin-top: -100px; /* 🔥 PIÙ DISTANZA */
 
   display: flex;
 
@@ -458,7 +456,7 @@ body {
 
 </div>
 
-<!-- TAG -->
+<!-- 🔥 TAG -->
 
 <div id="screenTags" class="hidden">
 
@@ -470,21 +468,21 @@ body {
 
   <div class="tags-container">
 
-    <div class="tag" onclick="selectTag('Manutenzione')">Manutenzione</div>
+    <div class="tag" onclick="selectTag('🧼 Pulizia')">🧼 Pulizia</div>
 
-    <div class="tag" onclick="selectTag('Pulizia')">Pulizia</div>
+    <div class="tag" onclick="selectTag('🧻 Materiali (carta, sapone)')">🧻 Materiali (carta, sapone)</div>
 
-    <div class="tag" onclick="selectTag('Comfort')">Comfort</div>
+    <div class="tag" onclick="selectTag('🔧 Guasti (rotture)')">🔧 Guasti (rotture)</div>
 
-    <div class="tag" onclick="selectTag('Servizi')">Servizi</div>
+    <div class="tag" onclick="selectTag('🛋️ Confort')">🛋️ Confort</div>
 
-    <div class="tag" onclick="selectTag('Altro')">Altro</div>
+    <div class="tag" onclick="selectTag('❓ Altro')">❓ Altro</div>
 
   </div>
 
 </div>
 
-<!-- COMMENTO -->
+<!-- SCHERMATA 2 -->
 
 <div id="screen2" class="hidden">
 
@@ -554,7 +552,7 @@ window.nextStep = function (scelta) {
 
 };
 
-/* CLICK TAG → AVANTI */
+/* CLICK TAG → PASSA SUBITO */
 
 window.selectTag = function(tag) {
 
