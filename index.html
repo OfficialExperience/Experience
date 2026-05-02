@@ -196,8 +196,6 @@ body {
 
   background: rgba(0,0,0,0.05);
 
-  backdrop-filter: blur(6px);
-
   cursor: pointer;
 
   transition: transform 0.2s ease, background 0.2s ease;
@@ -232,6 +230,50 @@ body {
 
 }
 
+/* TAG SCREEN */
+
+.tags-container {
+
+  margin-top: 10px;
+
+  display: flex;
+
+  flex-direction: column; /* 🔥 COLONNA */
+
+  align-items: center;
+
+  gap: 12px;
+
+}
+
+.tag {
+
+  width: 85%;
+
+  padding: 16px;
+
+  border-radius: 20px;
+
+  background: rgba(0,0,0,0.05);
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  text-align: center;
+
+  transition: 0.2s;
+
+}
+
+.tag:hover {
+
+  background: black;
+
+  color: white;
+
+}
+
 /* SCHERMATA 2 */
 
 .hidden {
@@ -252,11 +294,9 @@ body {
 
   position: relative;
 
-  top: -180px;
+  top: -94px;
 
 }
-
-/* CONTENITORE */
 
 .second-container {
 
@@ -269,8 +309,6 @@ body {
   align-items: center;
 
 }
-
-/* BOX COMMENTO */
 
 .comment-box {
 
@@ -286,8 +324,6 @@ body {
 
   background: rgba(0,0,0,0.05);
 
-  backdrop-filter: blur(6px);
-
   font-size: 16px;
 
   resize: none;
@@ -295,8 +331,6 @@ body {
   height: 120px;
 
 }
-
-/* BOTTONE */
 
 .submit-btn {
 
@@ -396,8 +430,6 @@ body {
 
   <div class="cards">
 
-    <!-- 👇 QUI PASSIAMO IL VALORE -->
-
     <div class="card" onclick="nextStep('Mi piace')">
 
       <img src="logo1.png">
@@ -426,7 +458,33 @@ body {
 
 </div>
 
-<!-- SCHERMATA 2 -->
+<!-- TAG -->
+
+<div id="screenTags" class="hidden">
+
+  <div class="comment-screen">
+
+    Cosa possiamo migliorare?
+
+  </div>
+
+  <div class="tags-container">
+
+    <div class="tag" onclick="selectTag('Manutenzione')">Manutenzione</div>
+
+    <div class="tag" onclick="selectTag('Pulizia')">Pulizia</div>
+
+    <div class="tag" onclick="selectTag('Comfort')">Comfort</div>
+
+    <div class="tag" onclick="selectTag('Servizi')">Servizi</div>
+
+    <div class="tag" onclick="selectTag('Altro')">Altro</div>
+
+  </div>
+
+</div>
+
+<!-- COMMENTO -->
 
 <div id="screen2" class="hidden">
 
@@ -458,8 +516,6 @@ body {
 
 </div>
 
-<!-- 🔥 FIREBASE -->
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -476,35 +532,41 @@ const firebaseConfig = {
 
   projectId: "experience-3edff",
 
-  storageBucket: "experience-3edff.appspot.com",
-
-  messagingSenderId: "212033191603",
-
-  appId: "1:212033191603:web:3060de28539b9824c53ac6"
-
 };
 
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-/* 🆕 SALVIAMO LA SCELTA */
-
 let sceltaUtente = "";
 
-/* PASSAGGIO SCHERMATA */
+let tagSelezionato = "";
+
+/* STEP 1 */
 
 window.nextStep = function (scelta) {
 
-  sceltaUtente = scelta; // 👈 SALVA SCELTA
+  sceltaUtente = scelta;
 
   document.getElementById("screen1").style.display = "none";
+
+  document.getElementById("screenTags").classList.remove("hidden");
+
+};
+
+/* CLICK TAG → AVANTI */
+
+window.selectTag = function(tag) {
+
+  tagSelezionato = tag;
+
+  document.getElementById("screenTags").style.display = "none";
 
   document.getElementById("screen2").classList.remove("hidden");
 
 };
 
-/* INVIO FEEDBACK */
+/* INVIO */
 
 window.sendFeedback = async function () {
 
@@ -516,7 +578,9 @@ window.sendFeedback = async function () {
 
       text: text,
 
-      scelta: sceltaUtente, // 👈 SALVIAMO SCELTA
+      scelta: sceltaUtente,
+
+      tag: tagSelezionato,
 
       timestamp: serverTimestamp()
 
@@ -528,7 +592,7 @@ window.sendFeedback = async function () {
 
   } catch (e) {
 
-    console.error("Errore invio:", e);
+    console.error("Errore:", e);
 
   }
 
