@@ -740,6 +740,10 @@ import {
 
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } 
+
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
 /* 🔥 FIREBASE */
 
 const firebaseConfig = {
@@ -755,6 +759,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+/* 🔐 BLOCCO ACCESSO */
+
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+
+    window.location.href = "login.html";
+
+  }
+
+});
 
 /* 🔥 PRENDE BUSINESS ID DAL LINK */
 
