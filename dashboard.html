@@ -740,7 +740,7 @@ import {
 
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } 
+import { getAuth, onAuthStateChanged } 
 
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
@@ -762,9 +762,19 @@ const db = getFirestore(app);
 
 const auth = getAuth(app);
 
-/* 🔐 BLOCCO ACCESSO */
+/* 🔐 FIX LOGIN REDIRECT */
+
+let authReady = false;
 
 onAuthStateChanged(auth, (user) => {
+
+  if (!authReady) {
+
+    authReady = true; // evita redirect immediato al caricamento iniziale
+
+    return;
+
+  }
 
   if (!user) {
 
