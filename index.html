@@ -422,7 +422,7 @@ body {
 
   <div class="question">
 
-    Esperienza oggi all’università?
+    Esperienza oggi ?
 
   </div>
 
@@ -536,6 +536,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
+const businessId = new URLSearchParams(window.location.search).get("businessId");
+
 let sceltaUtente = "";
 
 let tagSelezionato = "";
@@ -579,6 +581,8 @@ window.sendFeedback = async function () {
       scelta: sceltaUtente,
 
       tag: tagSelezionato,
+
+      businessId: businessId, // 🔥 AGGIUNTO
 
       timestamp: serverTimestamp()
 
