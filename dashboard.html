@@ -732,7 +732,11 @@ import {
 
   updateDoc,
 
-  doc
+  doc,
+
+  query,
+
+  where
 
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -751,6 +755,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+/* 🔥 PRENDE BUSINESS ID DAL LINK */
+
+const params = new URLSearchParams(window.location.search);
+
+const businessID = params.get("business");
 
 /* 🔥 ELIMINA COMMENTO */
 
@@ -802,7 +812,19 @@ function updateSingleBar(value, total, elementId) {
 
 /* 🔥 REALTIME */
 
-onSnapshot(collection(db, "feedback"), (snapshot) => {
+/* 🔥 QUERY BUSINESS */
+
+const feedbackQuery = query(
+
+  collection(db, "feedback"),
+
+  where("businessID", "==", businessID)
+
+);
+
+/* 🔥 REALTIME */
+
+onSnapshot(feedbackQuery, (snapshot) => {
 
   /* DASHBOARD */
 
