@@ -538,6 +538,52 @@ const db = getFirestore(app);
 
 const businessId = new URLSearchParams(window.location.search).get("businessId");
 
+/* 🔥 BUSINESS AUTORIZZATI */
+
+const allowedBusinesses = [
+
+  "UNIME_X92KQ71",
+
+  "HOTEL_ROMA_A81PZ2",
+
+  "RISTORANTE_ETNA_Q71LM9"
+
+];
+
+/* 🔥 CONTROLLO BUSINESS */
+
+if (!allowedBusinesses.includes(businessId)) {
+
+  document.body.innerHTML = `
+
+    <div style="
+
+      height:100vh;
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      font-family:Arial;
+
+      font-size:24px;
+
+      font-weight:bold;
+
+    ">
+
+      Business non valido
+
+    </div>
+
+  `;
+
+  throw new Error("Business non valido");
+
+}
+
 let sceltaUtente = "";
 
 let tagSelezionato = "";
