@@ -312,6 +312,102 @@ h1 {
 
 }
 
+/* 🔥 EXPERIENCE AI */
+
+.ai-box {
+
+  margin-top: 20px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
+  min-height: 160px;
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+/* HEADER AI */
+
+.ai-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+
+}
+
+/* TITOLO EXPERIENCE AI */
+
+.ai-title {
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+}
+
+/* LOGO */
+
+.ai-logo {
+
+  width: 45px;
+
+  height: 45px;
+
+  object-fit: contain;
+
+}
+
+/* TESTO AI */
+
+.ai-text {
+
+  font-size: 18px;
+
+  line-height: 1.6;
+
+  color: #333;
+
+  min-height: 70px;
+
+  white-space: pre-wrap;
+
+}
+
+/* CURSORE LAMPEGGIANTE */
+
+.cursor {
+
+  display: inline-block;
+
+  animation: blink 0.8s infinite;
+
+  font-weight: bold;
+
+}
+
+@keyframes blink {
+
+  50% {
+
+    opacity: 0;
+
+  }
+
+}
+
 /* 🔥 RESPONSIVE */
 
 @media (max-width: 768px) {
@@ -704,6 +800,50 @@ h1 {
 
 </div>
 
+<!-- 🔥 TITOLO AI -->
+
+<div class="section-title">
+
+  AI
+
+</div>
+
+<!-- 🔥 EXPERIENCE AI -->
+
+<div class="ai-box">
+
+  <!-- HEADER -->
+
+  <div class="ai-header">
+
+    <div class="ai-title">
+
+      ExperienceAI
+
+    </div>
+
+    <img
+
+      src="logo.png"
+
+      class="ai-logo"
+
+    >
+
+  </div>
+
+  <!-- TESTO LIVE -->
+
+  <div
+
+    id="aiText"
+
+    class="ai-text"
+
+  ></div>
+
+</div>
+
 <!-- 🔥 TOTALE COMMENTI -->
 
 <div class="total-box">
@@ -906,9 +1046,19 @@ onSnapshot(feedbackQuery, (snapshot) => {
 
   let totalComments = 0;
 
+  /* 🔥 COMMENTI AI */
+
+let commentsArray = [];
+
+/* 🔥 NUOVI FEEDBACK */
+
+let currentFeedbacks = [];
+
   snapshot.forEach(docSnap => {
 
     const data = docSnap.data();
+
+    currentFeedbacks.push(data);
 
     const id = docSnap.id;
 
@@ -1009,6 +1159,8 @@ onSnapshot(feedbackQuery, (snapshot) => {
       return;
 
     totalComments++;
+
+    commentsArray.push(data.text);
 
     const div = document.createElement("div");
 
@@ -1257,6 +1409,362 @@ onSnapshot(feedbackQuery, (snapshot) => {
   );
 
 });
+
+/* 🔥 EXPERIENCE AI REALTIME */
+
+/* NUOVI FEEDBACK */
+
+if (
+
+  currentFeedbacks.length >
+
+  previousCount
+
+) {
+
+  const difference =
+
+    currentFeedbacks.length -
+
+    previousCount;
+
+  /* 🔥 MOLTI FEEDBACK */
+
+  if (difference >= 3) {
+
+    writeAI(
+
+`Sono arrivati diversi feedback contemporaneamente.
+
+Controlla le statistiche per verificare eventuali problemi o miglioramenti improvvisi.`
+
+    );
+
+  }
+
+  /* 🔥 SINGOLO FEEDBACK */
+
+  else {
+
+    const latestFeedback =
+
+      currentFeedbacks[
+
+        currentFeedbacks.length - 1
+
+      ];
+
+    writeAI(
+
+      generateFeedbackMessage(
+
+        latestFeedback
+
+      )
+
+    );
+
+  }
+
+  analysisCounter += difference;
+
+  /* 🔥 RECAP OGNI 10 */
+
+  if (analysisCounter >= 10) {
+
+    writeAI(
+
+      generateRecap(
+
+        posYear,
+
+        midYear,
+
+        negYear,
+
+        historicClean,
+
+        historicMaterial,
+
+        historicRepair,
+
+        historicComfort,
+
+        historicOther,
+
+        commentsArray
+
+      )
+
+    );
+
+    analysisCounter = 0;
+
+  }
+
+}
+
+/* SALVA CONTEGGIO */
+
+previousCount =
+
+  currentFeedbacks.length;
+
+/* 🔥 EXPERIENCE AI */
+
+const aiText = document.getElementById("aiText");
+
+/* MEMORIA FEEDBACK */
+
+let previousCount = 0;
+
+let feedbackBuffer = [];
+
+let analysisCounter = 0;
+
+/* 🔥 SCRITTURA AI */
+
+function writeAI(text) {
+
+  aiText.innerHTML = "";
+
+  let index = 0;
+
+  function typing() {
+
+    if (index < text.length) {
+
+      aiText.innerHTML =
+
+        text.substring(0, index + 1) +
+
+        '<span class="cursor">|</span>';
+
+      index++;
+
+      setTimeout(typing, 22);
+
+    } else {
+
+      aiText.innerHTML =
+
+        text +
+
+        '<span class="cursor">|</span>';
+
+    }
+
+  }
+
+  typing();
+
+}
+
+/* 🔥 MESSAGGIO INIZIALE */
+
+writeAI(
+
+`Benvenuto, questa è ExperienceAI.
+
+Attualmente non c'è nessuna informazione disponibile.`
+
+);
+
+/* 🔥 CREA ANALISI FEEDBACK */
+
+function generateFeedbackMessage(data) {
+
+  const scelta = data.scelta || "feedback";
+
+  const tag = data.tag || "nessuna categoria";
+
+  const text = data.text || "";
+
+  let finalMessage =
+
+    `È appena arrivato un feedback: ${scelta}, nella categoria ${tag}`;
+
+  if (text.trim() !== "") {
+
+    finalMessage +=
+
+      `. Commento ricevuto: "${text}"`;
+
+  } else {
+
+    finalMessage +=
+
+      `, senza un commento aperto.`;
+
+  }
+
+  return finalMessage;
+
+}
+
+/* 🔥 ANALISI GENERALE */
+
+function generateRecap(
+
+  posYear,
+
+  midYear,
+
+  negYear,
+
+  historicClean,
+
+  historicMaterial,
+
+  historicRepair,
+
+  historicComfort,
+
+  historicOther,
+
+  comments
+
+) {
+
+  let bestTag = "";
+
+  let bestValue = 0;
+
+  const tags = [
+
+    {
+
+      name: "pulizia",
+
+      value: historicClean
+
+    },
+
+    {
+
+      name: "materiali",
+
+      value: historicMaterial
+
+    },
+
+    {
+
+      name: "guasti",
+
+      value: historicRepair
+
+    },
+
+    {
+
+      name: "confort",
+
+      value: historicComfort
+
+    },
+
+    {
+
+      name: "altro",
+
+      value: historicOther
+
+    }
+
+  ];
+
+  tags.forEach(tag => {
+
+    if (tag.value > bestValue) {
+
+      bestValue = tag.value;
+
+      bestTag = tag.name;
+
+    }
+
+  });
+
+  let commonWord = "";
+
+  const words = {};
+
+  comments.forEach(comment => {
+
+    comment
+
+      .toLowerCase()
+
+      .split(" ")
+
+      .forEach(word => {
+
+        if (word.length > 4) {
+
+          words[word] =
+
+            (words[word] || 0) + 1;
+
+        }
+
+      });
+
+  });
+
+  let maxWord = 0;
+
+  for (let word in words) {
+
+    if (words[word] > maxWord) {
+
+      maxWord = words[word];
+
+      commonWord = word;
+
+    }
+
+  }
+
+  let text =
+
+`Situazione aggiornata.
+
+Buona parte dei clienti risulta soddisfatta con un totale di ${posYear} feedback positivi.`;
+
+  if (bestTag !== "") {
+
+    text +=
+
+` La categoria più citata è ${bestTag}, con ${bestValue} segnalazioni.`;
+
+  }
+
+  if (commonWord !== "") {
+
+    text +=
+
+` Nei commenti aperti compare spesso la parola "${commonWord}".`;
+
+  } else {
+
+    text +=
+
+` Attualmente non ci sono abbastanza commenti aperti per un'analisi testuale avanzata.`;
+
+  }
+
+  if (negYear > posYear) {
+
+    text +=
+
+` Attenzione: i feedback negativi stanno aumentando, controlla le statistiche.`;
+
+  }
+
+  return text;
+
+}
 
 </script>
 
