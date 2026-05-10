@@ -1408,11 +1408,7 @@ let currentFeedbacks = [];
 
   );
 
-});
-
-/* 🔥 EXPERIENCE AI REALTIME */
-
-/* NUOVI FEEDBACK */
+ /* 🔥 EXPERIENCE AI SMART */
 
 if (
 
@@ -1428,75 +1424,51 @@ if (
 
     previousCount;
 
-  /* 🔥 MOLTI FEEDBACK */
-
-  if (difference >= 3) {
-
-    writeAI(
-
-`Sono arrivati diversi feedback contemporaneamente.
-
-Controlla le statistiche per verificare eventuali problemi o miglioramenti improvvisi.`
-
-    );
-
-  }
-
-  /* 🔥 SINGOLO FEEDBACK */
-
-  else {
-
-    const latestFeedback =
-
-      currentFeedbacks[
-
-        currentFeedbacks.length - 1
-
-      ];
-
-    writeAI(
-
-      generateFeedbackMessage(
-
-        latestFeedback
-
-      )
-
-    );
-
-  }
-
   analysisCounter += difference;
 
-  /* 🔥 RECAP OGNI 10 */
+  /* 🔥 MONITORAGGIO STANDARD */
+
+  writeAI(
+
+`Sto monitorando i feedback in tempo reale.
+
+Analizzo automaticamente andamento, criticità e possibili miglioramenti del servizio.`
+
+  );
+
+  /* 🔥 ANALISI OGNI 10 FEEDBACK */
 
   if (analysisCounter >= 10) {
 
-    writeAI(
+    setTimeout(() => {
 
-      generateRecap(
+      writeAI(
 
-        posYear,
+        generateRecap(
 
-        midYear,
+          posYear,
 
-        negYear,
+          midYear,
 
-        historicClean,
+          negYear,
 
-        historicMaterial,
+          historicClean,
 
-        historicRepair,
+          historicMaterial,
 
-        historicComfort,
+          historicRepair,
 
-        historicOther,
+          historicComfort,
 
-        commentsArray
+          historicOther,
 
-      )
+          commentsArray
 
-    );
+        )
+
+      );
+
+    }, 2500);
 
     analysisCounter = 0;
 
@@ -1504,11 +1476,14 @@ Controlla le statistiche per verificare eventuali problemi o miglioramenti impro
 
 }
 
-/* SALVA CONTEGGIO */
+/* 🔥 SALVA CONTEGGIO */
 
 previousCount =
 
   currentFeedbacks.length;
+
+
+});
 
 /* 🔥 EXPERIENCE AI */
 
@@ -1524,7 +1499,11 @@ let analysisCounter = 0;
 
 /* 🔥 SCRITTURA AI */
 
+let typingTimeout = null;
+
 function writeAI(text) {
+
+  clearTimeout(typingTimeout);
 
   aiText.innerHTML = "";
 
@@ -1542,7 +1521,7 @@ function writeAI(text) {
 
       index++;
 
-      setTimeout(typing, 22);
+      typingTimeout = setTimeout(typing, 12);
 
     } else {
 
@@ -1569,38 +1548,6 @@ writeAI(
 Attualmente non c'è nessuna informazione disponibile.`
 
 );
-
-/* 🔥 CREA ANALISI FEEDBACK */
-
-function generateFeedbackMessage(data) {
-
-  const scelta = data.scelta || "feedback";
-
-  const tag = data.tag || "nessuna categoria";
-
-  const text = data.text || "";
-
-  let finalMessage =
-
-    `È appena arrivato un feedback: ${scelta}, nella categoria ${tag}`;
-
-  if (text.trim() !== "") {
-
-    finalMessage +=
-
-      `. Commento ricevuto: "${text}"`;
-
-  } else {
-
-    finalMessage +=
-
-      `, senza un commento aperto.`;
-
-  }
-
-  return finalMessage;
-
-}
 
 /* 🔥 ANALISI GENERALE */
 
@@ -1686,51 +1633,111 @@ function generateRecap(
 
   });
 
-  let commonWord = "";
+/* 🔥 ANALISI INTELLIGENTE COMMENTI */
 
-  const words = {};
+let insights = [];
 
-  comments.forEach(comment => {
+const joinedComments =
 
-    comment
+  comments.join(" ").toLowerCase();
 
-      .toLowerCase()
+/* MATERIALI */
 
-      .split(" ")
+if (
 
-      .forEach(word => {
+  joinedComments.includes("carta") ||
 
-        if (word.length > 4) {
+  joinedComments.includes("sapone") ||
 
-          words[word] =
+  joinedComments.includes("manca")
 
-            (words[word] || 0) + 1;
+) {
 
-        }
+  insights.push(
 
-      });
+    "Diversi feedback segnalano possibili mancanze di materiali."
 
-  });
+  );
 
-  let maxWord = 0;
+}
 
-  for (let word in words) {
+/* PULIZIA */
 
-    if (words[word] > maxWord) {
+if (
 
-      maxWord = words[word];
+  joinedComments.includes("sporco") ||
 
-      commonWord = word;
+  joinedComments.includes("pipi") ||
 
-    }
+  joinedComments.includes("odore")
 
-  }
+) {
 
-  let text =
+  insights.push(
 
-`Situazione aggiornata.
+    "Alcuni clienti stanno segnalando problemi legati alla pulizia."
 
-Buona parte dei clienti risulta soddisfatta con un totale di ${posYear} feedback positivi.`;
+  );
+
+}
+
+/* GUASTI */
+
+if (
+
+  joinedComments.includes("rotto") ||
+
+  joinedComments.includes("guasto") ||
+
+  joinedComments.includes("tavolo")
+
+) {
+
+  insights.push(
+
+    "Sono presenti segnalazioni relative a guasti o oggetti danneggiati."
+
+  );
+
+}
+
+ let text = `Situazione aggiornata.\n\n`;
+
+const totalFeedbacks =
+
+  posYear + midYear + negYear;
+
+/* 🔥 PREVALENZA POSITIVA */
+
+if (posYear > negYear) {
+
+  text +=
+
+`La maggior parte dei feedback ricevuti risulta positiva, con ${posYear} feedback favorevoli su ${totalFeedbacks} totali.`;
+
+}
+
+/* 🔥 PREVALENZA NEGATIVA */
+
+else if (negYear > posYear) {
+
+  text +=
+
+`Sono stati rilevati diversi feedback negativi (${negYear} su ${totalFeedbacks}).
+
+Si consiglia di controllare le criticità segnalate dai clienti.`;
+
+}
+
+/* 🔥 SITUAZIONE EQUILIBRATA */
+
+else {
+
+  text +=
+
+`I feedback ricevuti risultano attualmente equilibrati tra positivi e negativi.`;
+
+}
 
   if (bestTag !== "") {
 
@@ -1740,19 +1747,17 @@ Buona parte dei clienti risulta soddisfatta con un totale di ${posYear} feedback
 
   }
 
-  if (commonWord !== "") {
+  if (insights.length > 0) {
 
-    text +=
+  text += " " + insights.join(" ");
 
-` Nei commenti aperti compare spesso la parola "${commonWord}".`;
+} else {
 
-  } else {
+  text +=
 
-    text +=
+` Attualmente non emergono pattern rilevanti nei commenti aperti.`;
 
-` Attualmente non ci sono abbastanza commenti aperti per un'analisi testuale avanzata.`;
-
-  }
+}
 
   if (negYear > posYear) {
 
