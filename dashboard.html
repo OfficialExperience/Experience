@@ -279,14 +279,13 @@ h1 {
 }
 
 /* 🔥 DELETE */
-
 .delete-btn {
 
-  width: 30px;
+  width: 42px;
 
-  height: 30px;
+  height: 42px;
 
-  background: black;
+  background: #31C859;
 
   color: white;
 
@@ -300,15 +299,23 @@ h1 {
 
   cursor: pointer;
 
-  font-weight: bold;
+  font-size: 20px;
 
-  transition: transform 0.2s ease;
+  transition: all 0.25s ease;
+
+  box-shadow:
+
+    0 4px 12px rgba(49,200,89,0.35);
 
 }
 
 .delete-btn:hover {
 
-  transform: scale(1.2);
+  transform: scale(1.12);
+
+  box-shadow:
+
+    0 6px 18px rgba(49,200,89,0.45);
 
 }
 
@@ -934,6 +941,18 @@ const businessID = params.get("business");
 
 window.deleteFeedback = async function(id) {
 
+  /* 🔥 SALVA EVENTO RISOLUZIONE */
+
+  localStorage.setItem(
+
+    "feedbackResolved",
+
+    Date.now()
+
+  );
+
+  /* 🔥 ELIMINA COMMENTO */
+
   await updateDoc(doc(db, "feedback", id), {
 
     text: ""
@@ -1192,7 +1211,7 @@ let currentFeedbacks = [];
 
       >
 
-        X
+        👍
 
       </div>
 
@@ -1674,7 +1693,6 @@ if (
 ) {
 
   insights.push(
-
     "Alcuni clienti stanno segnalando problemi legati alla pulizia."
 
   );
