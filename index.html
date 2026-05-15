@@ -447,18 +447,93 @@ body {
   justify-content: center;
 
 }
-
 /* 🔥 LINEA */
 
 .resolve-line {
 
   width: 220px;
 
-  height: 5px;
+  height: 8px;
 
   background: #E5E5E5;
 
-  border-radius: 20px;
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  position: relative;
+
+}
+
+/* 🔥 RIEMPIMENTO */
+
+.resolve-fill {
+
+  width: 0%;
+
+  height: 100%;
+
+  border-radius: 30px;
+
+  background: linear-gradient(
+
+    90deg,
+
+    #31C859,
+
+    #63E283,
+
+    #31C859
+
+  );
+
+  transition: width 2.2s cubic-bezier(.22,.61,.36,1);
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+/* 🔥 EFFETTO LIQUIDO */
+
+.resolve-fill::after {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: -40px;
+
+  width: 40px;
+
+  height: 100%;
+
+  background: rgba(255,255,255,0.4);
+
+  filter: blur(4px);
+
+  animation: liquidMove 1.2s linear infinite;
+
+}
+
+/* 🔥 MOVIMENTO */
+
+@keyframes liquidMove {
+
+  0% {
+
+    left: -40px;
+
+  }
+
+  100% {
+
+    left: 100%;
+
+  }
 
 }
 
@@ -694,7 +769,13 @@ body {
 
       <!-- LINEA -->
 
-      <div class="resolve-line"></div>
+<div class="resolve-line">
+
+  <!-- LIQUIDO -->
+
+  <div id="resolveFill" class="resolve-fill"></div>
+
+</div>
 
       <!-- CHECK -->
 
@@ -872,15 +953,23 @@ function startResolveAnimation() {
 
     document.getElementById("resolveCheck");
 
-  if (!logo || !check) return;
+  const fill =
 
-  /* 🔥 MOVIMENTO */
+    document.getElementById("resolveFill");
+
+  if (!logo || !check || !fill) return;
+
+  /* 🔥 RIEMPIE LA LINEA */
+
+  fill.style.width = "100%";
+
+  /* 🔥 MUOVE IL LOGO */
 
   logo.style.transform =
 
     "translateX(230px)";
 
-  /* 🔥 CHECK */
+  /* 🔥 ATTIVA CHECK */
 
   setTimeout(() => {
 
@@ -888,7 +977,7 @@ function startResolveAnimation() {
 
   }, 1800);
 
-  /* 🔥 EVAPORAZIONE */
+  /* 🔥 EVAPORA LOGO */
 
   setTimeout(() => {
 
