@@ -8,7 +8,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login Dashboard</title>
+<title>Feedback</title>
 
 <style>
 
@@ -32,19 +32,19 @@ body {
 
 }
 
-/* 🔥 CONTAINER */
+.container {
 
-.login-container {
+  width: 100%;
 
-  width: 90%;
-
-  max-width: 420px;
+  max-width: 400px;
 
   text-align: center;
 
+  position: relative;
+
 }
 
-/* 🔥 LOGO */
+/* LOGO */
 
 .logo-wrapper {
 
@@ -52,19 +52,17 @@ body {
 
   display: inline-block;
 
-  margin-bottom: 25px;
-
 }
 
 .logo {
 
-  width: 120px;
+  width: 110px;
 
   display: block;
 
 }
 
-/* 🔥 LUCE */
+/* LUCE */
 
 .shine {
 
@@ -90,79 +88,259 @@ body {
 
   );
 
-  animation: shineMove 2.5s ease-in-out infinite;
+  animation: shineMove 1.5s ease forwards;
 
-  }
+}
 
 @keyframes shineMove {
 
-  0% {
+  0% { left: -100%; }
 
-    left: -100%;
+  100% { left: 100%; }
 
-  }
+}
 
-  100% {
+/* SCOMPARSA LOGO */
 
-    left: 100%;
+.fade-out {
+
+  animation: fadeOut 0.8s ease forwards;
+
+  animation-delay: 1.5s;
+
+}
+
+@keyframes fadeOut {
+
+  to {
+
+    opacity: 0;
+
+    transform: scale(1.1);
 
   }
 
 }
 
-/* 🔥 TITOLO */
+/* DOMANDA */
 
-h2 {
+.question {
 
-  font-size: 34px;
+  position: absolute;
 
-  margin-bottom: 35px;
+  top: -180%;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  opacity: 0;
+
+  font-size: 22px;
+
+  white-space: nowrap;
+
+  font-weight: bold;
+
+  animation: fadeIn 1s ease forwards;
+
+  animation-delay: 2.3s;
 
 }
 
-/* 🔥 INPUT */
+@keyframes fadeIn {
 
-.input-box {
+  to { opacity: 1; }
+
+}
+
+/* CARDS */
+
+.cards {
+
+  position: absolute;
+
+  top: -80%;
 
   width: 100%;
 
-  padding: 20px;
+  display: flex;
 
-  margin-bottom: 18px;
+  flex-direction: column;
 
-  border: none;
+  align-items: center;
 
-  border-radius: 22px;
+  opacity: 0;
 
-  background: rgba(0,0,0,0.05);
+  animation: fadeIn 1s ease forwards;
 
-  font-size: 18px;
-
-  outline: none;
-
-  box-sizing: border-box;
-
-  transition: 0.2s;
+  animation-delay: 2.8s;
 
 }
 
-.input-box:focus {
+.card {
+
+  width: 82%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 28px 22px;
+
+  margin: 14px 0;
+
+  border-radius: 20px;
+
+  background: rgba(0,0,0,0.05);
+
+  cursor: pointer;
+
+  transition: transform 0.2s ease, background 0.2s ease;
+
+}
+
+.card:hover {
+
+  transform: scale(1.05);
 
   background: rgba(0,0,0,0.08);
 
 }
 
-/* 🔥 BOTTONE LOGIN */
+.card img {
 
-.login-btn {
+  width: 70px;
 
-  width: 100%;
+  height: 70px;
 
-  padding: 20px;
+}
+
+.card span {
+
+  flex: 1;
+
+  text-align: right;
+
+  font-size: 17px;
+
+  font-weight: bold;
+
+}
+
+/* TAG SCREEN */
+
+.tags-container {
+
+  margin-top: -120px;
+
+  display: flex;
+
+  flex-direction: column; /* 🔥 COLONNA */
+
+  align-items: center;
+
+  gap: 14px;
+
+}
+
+.tag {
+
+  width: 80%;
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  background: rgba(0,0,0,0.05);
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  text-align: center;
+
+  transition: 0.2s;
+
+}
+
+.tag:hover {
+
+  background: rgba(0,0,0,0.08);
+
+}
+
+/* SCHERMATA 2 */
+
+.hidden {
+
+  display: none;
+
+}
+
+.comment-screen {
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  opacity: 0;
+
+  animation: fadeIn 1s ease forwards;
+
+  position: relative;
+
+  top: -156px;
+
+}
+
+.second-container {
+
+  margin-top: -100px; /* 🔥 PIÙ DISTANZA */
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+.comment-box {
+
+  width: 85%;
+
+  padding: 15px;
+
+  border-radius: 18px;
 
   border: none;
 
-  border-radius: 22px;
+  outline: none;
+
+  background: rgba(0,0,0,0.05);
+
+  font-size: 16px;
+
+  resize: none;
+
+  height: 120px;
+
+}
+
+.submit-btn {
+
+  width: 85%;
+
+  margin-top: 15px;
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  border: none;
 
   background: black;
 
@@ -170,31 +348,245 @@ h2 {
 
   font-size: 20px;
 
+  cursor: pointer;
+
+}
+
+.skip-btn {
+
+  width: 85%;
+
+  margin-top: 18px;
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  background: rgba(0,0,0,0.05);
+
+  font-size: 16px;
+
   font-weight: bold;
 
   cursor: pointer;
 
-  transition: 0.2s;
-
 }
 
-.login-btn:hover {
+/* FINALE */
 
-  transform: scale(1.03);
+#thankYou {
 
-}
+  position: fixed;
 
-/* 🔥 ERRORE */
+  top: 0;
 
-#error {
+  left: 0;
 
-  margin-top: 20px;
+  width: 100%;
 
-  color: red;
+  height: 100%;
+
+  background: white;
+
+  display: none;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 24px;
 
   font-weight: bold;
 
-  font-size: 16px;
+}
+
+/* 🔥 THANK YOU */
+
+.thank-wrapper {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+.thank-title {
+
+  font-size: 28px;
+
+  font-weight: bold;
+
+}
+
+.thank-subtitle {
+
+  margin-top: 16px;
+
+  font-size: 18px;
+
+  color: #666;
+
+}
+
+/* 🔥 CONTAINER */
+
+.resolve-container {
+
+  margin-top: 45px;
+
+  width: 320px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+/* 🔥 LINEA */
+
+.resolve-line {
+
+  width: 220px;
+
+  height: 8px;
+
+  background: #E5E5E5;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  position: relative;
+
+}
+
+/* 🔥 RIEMPIMENTO */
+
+.resolve-fill {
+
+  position: absolute;
+
+  left: 0;
+
+  top: 0;
+
+  width: 0%;
+
+  height: 100%;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+
+    90deg,
+
+    #31C859,
+
+    #5DFF8B
+
+  );
+
+  transition: width 2.2s cubic-bezier(.22,.61,.36,1);
+
+  box-shadow:
+
+    0 0 12px rgba(49,200,89,0.7);
+
+}
+
+/* 🔥 LOGO */
+
+.moving-logo {
+
+  width: 54px;
+
+  height: 54px;
+
+  position: absolute;
+
+  left: 0;
+
+  transition:
+
+    transform 2.2s cubic-bezier(.22,.61,.36,1),
+
+    opacity 1s ease;
+
+}
+
+/* 🔥 CHECK */
+
+.resolve-check {
+
+  position: absolute;
+
+  right: -8px;
+
+  font-size: 38px;
+
+  opacity: 0.5;
+
+  transition: all 0.5s ease;
+
+}
+
+/* 🔥 ATTIVO */
+
+.resolve-check.active {
+
+  opacity: 1;
+
+  transform: scale(1.15);
+
+}
+
+/* 🔥 EVAPORAZIONE */
+
+.logo-evaporate {
+
+  animation: evaporate 1.2s ease forwards;
+
+}
+
+@keyframes evaporate {
+
+  0% {
+
+    opacity: 1;
+
+    transform:
+
+      translateX(230px)
+
+      translateY(0px)
+
+      scale(1);
+
+    filter: blur(0px);
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+
+      translateX(230px)
+
+      translateY(-60px)
+
+      scale(0.4);
+
+    filter: blur(10px);
+
+  }
 
 }
 
@@ -204,11 +596,13 @@ h2 {
 
 <body>
 
-<div class="login-container">
+<div class="container">
 
-  <!-- 🔥 LOGO -->
+<!-- SCHERMATA 1 -->
 
-  <div class="logo-wrapper">
+<div id="screen1">
+
+  <div class="logo-wrapper fade-out">
 
     <img src="logo.png" class="logo">
 
@@ -216,79 +610,167 @@ h2 {
 
   </div>
 
-  <!-- 🔥 TITOLO -->
+  <div class="question">
 
-  <h2>Login Dashboard</h2>
+    Esperienza oggi ?
 
-  <!-- 🔥 EMAIL -->
+  </div>
 
-  <input
+  <div class="cards">
 
-    id="email"
+    <div class="card" onclick="nextStep('Mi piace')">
 
-    class="input-box"
+      <img src="logo1.png">
 
-    placeholder="E-mail"
+      <span>Mi piace</span>
 
-  >
+    </div>
 
-  <!-- 🔥 PASSWORD -->
+    <div class="card" onclick="nextStep('Discreta')">
 
-  <input
+      <img src="logo2.png">
 
-    id="password"
+      <span>Discreta</span>
 
-    type="password"
+    </div>
 
-    class="input-box"
+    <div class="card" onclick="nextStep('Non mi piace')">
 
-    placeholder="Password"
+      <img src="logo3.png">
 
-  >
+      <span>Non mi piace</span>
 
-  <!-- 🔥 LOGIN -->
+    </div>
 
-  <button
+  </div>
 
-    class="login-btn"
+</div>
 
-    onclick="login()"
+<!-- 🔥 TAG -->
 
-  >
+<div id="screenTags" class="hidden">
 
-    Login
+  <div class="comment-screen">
 
-  </button>
+    Cosa possiamo migliorare?
 
-  <p id="error"></p>
+  </div>
+
+  <div class="tags-container">
+
+    <div class="tag" onclick="selectTag('🧼 Pulizia')">🧼 Pulizia</div>
+
+    <div class="tag" onclick="selectTag('🧻 Materiali (carta, sapone)')">🧻 Materiali (carta, sapone)</div>
+
+    <div class="tag" onclick="selectTag('🔧 Guasti (rotture)')">🔧 Guasti (rotture)</div>
+
+    <div class="tag" onclick="selectTag('🛋️ Confort')">🛋️ Confort</div>
+
+    <div class="tag" onclick="selectTag('❓ Altro')">❓ Altro</div>
+
+  </div>
+
+</div>
+
+<!-- SCHERMATA 2 -->
+
+<div id="screen2" class="hidden">
+
+  <div class="comment-screen">
+
+    Commenterai la tua esperienza ?
+
+  </div>
+
+  <div class="second-container">
+
+    <textarea id="feedbackText" class="comment-box"
+
+      placeholder="Scrivi qui la tua esperienza..."></textarea>
+
+    <button class="submit-btn" onclick="sendFeedback()">→</button>
+
+    <div class="skip-btn" onclick="sendFeedback()">Non commento</div>
+
+  </div>
+
+</div>
+
+</div>
+
+<div id="thankYou">
+
+  <div class="thank-wrapper">
+
+    <div class="thank-title">
+
+      Grazie per il feedback 😃
+
+    </div>
+
+    <div class="thank-subtitle">
+
+      Il tuo feedback verrà risolto
+
+    </div>
+
+    <!-- 🔥 ANIMAZIONE -->
+
+    <div class="resolve-container">
+
+      <!-- LOGO -->
+
+      <img
+
+        src="logo.png"
+
+        id="movingLogo"
+
+        class="moving-logo"
+
+      >
+
+      <!-- LINEA -->
+
+<div class="resolve-line">
+
+  <!-- 🔥 LIQUIDO -->
+
+  <div id="resolveFill" class="resolve-fill"></div>
+
+</div>
+
+      <!-- CHECK -->
+
+      <div
+
+        id="resolveCheck"
+
+        class="resolve-check"
+
+      >
+
+        ✅
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
 
 <script type="module">
 
-import { initializeApp }
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } 
 
-import {
-
-  getAuth,
-
-  signInWithEmailAndPassword,
-
-  setPersistence,
-
-  browserLocalPersistence
-
-}
-
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-/* 🔥 FIREBASE */
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDot8DBEW_O9WAIEPiatS8Nqoc8qd9SNO4",
+  apiKey: "AIza...",
 
   authDomain: "experience-3edff.firebaseapp.com",
 
@@ -298,80 +780,175 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const db = getFirestore(app);
 
-/* 🔥 LOGIN PERSISTENTE */
+const businessId = new URLSearchParams(window.location.search).get("businessId");
 
-setPersistence(auth, browserLocalPersistence);
+/* 🔥 BUSINESS AUTORIZZATI */
 
-/* 🔥 LOGIN */
+const allowedBusinesses = [
 
-window.login = async function() {
+  "unime_messina",
 
-  const email =
+  "unime_prova1",
 
-    document.getElementById("email").value;
+  "demo_experience",
 
-  const pass =
+];
 
-    document.getElementById("password").value;
+/* 🔥 CONTROLLO BUSINESS */
+
+if (!allowedBusinesses.includes(businessId)) {
+
+  document.body.innerHTML = `
+
+    <div style="
+
+      height:100vh;
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      font-family:Arial;
+
+      font-size:24px;
+
+      font-weight:bold;
+
+    ">
+
+      Business non valido
+
+    </div>
+
+  `;
+
+  throw new Error("Business non valido");
+
+}
+
+let sceltaUtente = "";
+
+let tagSelezionato = "";
+
+/* STEP 1 */
+
+window.nextStep = function (scelta) {
+
+  sceltaUtente = scelta;
+
+  document.getElementById("screen1").style.display = "none";
+
+  document.getElementById("screenTags").classList.remove("hidden");
+
+};
+
+/* CLICK TAG → PASSA SUBITO */
+
+window.selectTag = function(tag) {
+
+  tagSelezionato = tag;
+
+  document.getElementById("screenTags").style.display = "none";
+
+  document.getElementById("screen2").classList.remove("hidden");
+
+};
+
+/* INVIO */
+
+window.sendFeedback = async function () {
+
+  const text = document.getElementById("feedbackText").value;
 
   try {
 
-    await signInWithEmailAndPassword(
+    await addDoc(collection(db, "feedback"), {
 
-      auth,
+      text: text,
 
-      email,
+      scelta: sceltaUtente,
 
-      pass
+      tag: tagSelezionato,
 
-    );
+      businessId: businessId, // 🔥 AGGIUNTO
 
-    /* 🔥 BUSINESS */
+      timestamp: serverTimestamp()
 
-    let business = "";
+    });
 
-    if (email === "unime@gmail.com") {                      
+    document.getElementById("screen2").style.display = "none";
 
-      business = "unime_messina";
-
-    }
-
-     if (email === "unime@prova1.com") {
-
-      business = "unime_prova1";
-
-    }
-
-    if (email === "demo@experience.com") {
-
-      business = "demo_experience";
-
-    }
-
-
-    /* 🔥 REDIRECT */
-
-    setTimeout(() => {
-
-      window.location.href =
-
-        "dashboard.html?business=" + business;
-
-    }, 300);
+    document.getElementById("thankYou").style.display = "flex";
 
   } catch (e) {
 
-    document.getElementById("error").innerText =
-
-      "Login errato";
-
-    console.log(e);
+    console.error("Errore:", e);
 
   }
 
 };
+
+/* 🔥 CONTROLLO FEEDBACK RISOLTO */
+
+window.addEventListener("storage", (event) => {
+
+  if (event.key === "feedbackResolved") {
+
+    startResolveAnimation();
+
+  }
+
+});
+
+/* 🔥 AVVIO ANIMAZIONE */
+
+function startResolveAnimation() {
+
+  const logo =
+
+    document.getElementById("movingLogo");
+
+  const check =
+
+    document.getElementById("resolveCheck");
+
+  const fill =
+
+    document.getElementById("resolveFill");
+
+  if (!logo || !check || !fill) return;
+
+  /* 🔥 RIEMPIE LA LINEA */
+
+  fill.style.width = "100%";
+
+  /* 🔥 MOVIMENTO LOGO */
+
+  logo.style.transform =
+
+    "translateX(230px)";
+
+  /* 🔥 ATTIVA CHECK */
+
+  setTimeout(() => {
+
+    check.classList.add("active");
+
+  }, 2000);
+
+  /* 🔥 EVAPORAZIONE */
+
+  setTimeout(() => {
+
+    logo.classList.add("logo-evaporate");
+
+  }, 2300);
+
+}
 
 </script>
 
