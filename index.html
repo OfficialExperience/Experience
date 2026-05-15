@@ -474,11 +474,11 @@ body {
 
   position: absolute;
 
-  left: -4px;
+  left: -30px;
 
   top: 50%;
 
-  width: 22px;
+  width: 40px;
 
   height: 100%;
 
@@ -488,25 +488,19 @@ body {
 
   background: linear-gradient(
 
-     90deg,
+    90deg,
 
-  rgba(98, 0, 255, 0),
+    rgba(98, 0, 255, 0),
 
-  rgba(98, 0, 255, 0.95),
+    rgba(98, 0, 255, 0.95),
 
-  rgba(98, 0, 255, 0)
+    rgba(98, 0, 255, 0)
 
-);
+  );
 
-  filter: blur(2px);
+  filter: blur(3px);
 
-  opacity: 0.9;
-
-  transition:
-
-    transform 2.2s cubic-bezier(.22,.61,.36,1),
-
-    opacity 0.6s ease;
+  opacity: 0;
 
 }
 
@@ -514,15 +508,67 @@ body {
 
 .resolve-line.active::before {
 
-  transform:
-
-    translateY(-50%)
-
-    translateX(210px)
-
-    scaleX(1.5);
-
   opacity: 1;
+
+  animation:
+
+    liquidFlow 2.4s ease forwards,
+
+    liquidPulse 1.2s ease-in-out infinite;
+
+}
+
+/* 🔥 FLUSSO LIQUIDO */
+
+@keyframes liquidFlow {
+
+  0% {
+
+    transform:
+
+      translateY(-50%)
+
+      translateX(0px)
+
+      scaleX(1);
+
+  }
+
+  100% {
+
+    transform:
+
+      translateY(-50%)
+
+      translateX(250px)
+
+      scaleX(1.6);
+
+  }
+
+}
+
+/* 🔥 EFFETTO VIVO */
+
+@keyframes liquidPulse {
+
+  0% {
+
+    filter: blur(2px);
+
+  }
+
+  50% {
+
+    filter: blur(5px);
+
+  }
+
+  100% {
+
+    filter: blur(2px);
+
+  }
 
 }
 
@@ -586,11 +632,7 @@ body {
 
   left: 0;
 
-  transition:
-
-    transform 2.2s cubic-bezier(.22,.61,.36,1),
-
-    opacity 1s ease;
+  z-index: 2;
 
 }
 
@@ -620,49 +662,6 @@ body {
 
 }
 
-/* 🔥 EVAPORAZIONE */
-
-.logo-evaporate {
-
-  animation: evaporate 1.2s ease forwards;
-
-}
-
-@keyframes evaporate {
-
-  0% {
-
-    opacity: 1;
-
-    transform:
-
-      translateX(230px)
-
-      translateY(0px)
-
-      scale(1);
-
-    filter: blur(0px);
-
-  }
-
-  100% {
-
-    opacity: 0;
-
-    transform:
-
-      translateX(230px)
-
-      translateY(-60px)
-
-      scale(0.4);
-
-    filter: blur(10px);
-
-  }
-
-}
 
 </style>
 
@@ -972,31 +971,21 @@ window.addEventListener("storage", (event) => {
 
 });
 
-/* 🔥 AVVIO ANIMAZIONE */
-
 function startResolveAnimation() {
-
-  const logo =
-
-    document.getElementById("movingLogo");
 
   const check =
 
     document.getElementById("resolveCheck");
 
-    const line = document.querySelector(".resolve-line");
+  const line =
 
-  if (!logo || !check) return;
+    document.querySelector(".resolve-line");
 
-  /* 🔥 LIQUIDO */
+  if (!check || !line) return;
 
-line.classList.add("active");
+  /* 🔥 ATTIVA LIQUIDO */
 
-/* 🔥 LOGO */
-
-logo.style.transform =
-
-  "translateX(230px)";
+  line.classList.add("active");
 
   /* 🔥 CHECK */
 
@@ -1005,14 +994,6 @@ logo.style.transform =
     check.classList.add("active");
 
   }, 1800);
-
-  /* 🔥 EVAPORAZIONE */
-
-  setTimeout(() => {
-
-    logo.classList.add("logo-evaporate");
-
-  }, 2200);
 
 }
 
