@@ -454,49 +454,11 @@ body {
 
   width: 220px;
 
-  height: 8px;
+  height: 5px;
 
   background: #E5E5E5;
 
   border-radius: 20px;
-
-  overflow: hidden;
-
-  position: relative;
-
-}
-
-/* 🔥 RIEMPIMENTO */
-
-.resolve-fill {
-
-  position: absolute;
-
-  left: 0;
-
-  top: 0;
-
-  width: 12px;
-
-  height: 100%;
-
-  border-radius: 20px;
-
-  background: linear-gradient(
-
-    90deg,
-
-    #31C859,
-
-    #5DFF8B
-
-  );
-
-  transition: width 2.2s cubic-bezier(.22,.61,.36,1);
-
-  box-shadow:
-
-    0 0 12px rgba(49,200,89,0.7);
 
 }
 
@@ -510,9 +472,7 @@ body {
 
   position: absolute;
 
-  left: -8px;
-
-  z-index:2;
+  left: 0;
 
   transition:
 
@@ -734,13 +694,7 @@ body {
 
       <!-- LINEA -->
 
-<div class="resolve-line">
-
-  <!-- 🔥 LIQUIDO -->
-
-  <div id="resolveFill" class="resolve-fill"></div>
-
-</div>
+      <div class="resolve-line"></div>
 
       <!-- CHECK -->
 
@@ -766,23 +720,7 @@ body {
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-import {
-
-  getFirestore,
-
-  collection,
-
-  addDoc,
-
-  serverTimestamp,
-
-  query,
-
-  where,
-
-  onSnapshot
-
-}
+import { getFirestore, collection, addDoc, serverTimestamp } 
 
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -884,7 +822,7 @@ window.sendFeedback = async function () {
 
   try {
 
-    const docRef = await addDoc(collection(db, "feedback"), {
+    await addDoc(collection(db, "feedback"), {
 
       text: text,
 
@@ -894,8 +832,6 @@ window.sendFeedback = async function () {
 
       businessId: businessId, // 🔥 AGGIUNTO
 
-      resolved: false,
-
       timestamp: serverTimestamp()
 
     });
@@ -903,8 +839,6 @@ window.sendFeedback = async function () {
     document.getElementById("screen2").style.display = "none";
 
     document.getElementById("thankYou").style.display = "flex";
-
-    listenResolution(docRef.id);
 
   } catch (e) {
 
@@ -914,55 +848,39 @@ window.sendFeedback = async function () {
 
 };
 
-/* 🔥 ASCOLTA RISOLUZIONE */
+/* 🔥 CONTROLLO FEEDBACK RISOLTO */
 
-function listenResolution(feedbackId) {
+window.addEventListener("storage", (event) => {
 
-  const q = query(
+  if (event.key === "feedbackResolved") {
 
-    collection(db, "feedback"),
+    startResolveAnimation();
 
-    where("__name__", "==", feedbackId)
+  }
 
-  );
-
-  onSnapshot(q, (snapshot) => {
-
-    snapshot.forEach((docSnap) => {
-
-      const data = docSnap.data();
-
-      if (data.resolved === true) {
-
-        startResolveAnimation();
-
-      }
-
-    });
-
-  });
-
-}
+});
 
 /* 🔥 AVVIO ANIMAZIONE */
 
 function startResolveAnimation() {
 
+  const logo =
+
+    document.getElementById("movingLogo");
+
   const check =
 
     document.getElementById("resolveCheck");
 
-  const fill =
+  if (!logo || !check) return;
 
-    document.getElementById("resolveFill");
+  /* 🔥 MOVIMENTO */
 
-  if (!check || !fill) return;
+  logo.style.transform =
 
-  /* 🔥 RIEMPIE LINEA */
+    "translateX(230px)";
 
-  fill.style.width = "100%";
-
-  /* 🔥 ACCENDE CHECK */
+  /* 🔥 CHECK */
 
   setTimeout(() => {
 
@@ -970,8 +888,15 @@ function startResolveAnimation() {
 
   }, 1800);
 
-}
+  /* 🔥 EVAPORAZIONE */
 
+  setTimeout(() => {
+
+    logo.classList.add("logo-evaporate");
+
+  }, 2200);
+
+}
 
 </script>
 
