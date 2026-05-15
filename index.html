@@ -447,115 +447,106 @@ body {
   justify-content: center;
 
 }
+
 /* 🔥 LINEA */
 
 .resolve-line {
 
   width: 220px;
 
-  height: 8px;
+  height: 5px;
 
   background: #E5E5E5;
 
-  border-radius: 30px;
-
-  overflow: hidden;
+  border-radius: 20px;
 
   position: relative;
 
-}
-
-/* 🔥 RIEMPIMENTO */
-
-.resolve-fill {
-
-  width: 0%;
-
-  height: 100%;
-
-  border-radius: 30px;
-
-  background: linear-gradient(
-
-    90deg,
-
-    #31C859 0%,
-
-    #63E283 50%,
-
-    #31C859 100%
-
-  );
-
-  background-size: 200% 100%;
-
-  animation: liquidFlow 1.2s linear infinite;
-
-  transition: width 2.2s cubic-bezier(.22,.61,.36,1);
-
-  position: absolute;
-
-  left: 0;
-
-  top: 0;
-
-  z-index: 1;
+  overflow: hidden;
 
 }
 
-/* 🔥 EFFETTO LIQUIDO */
+/* 🔥 GOCCIA LIQUIDA */
 
-.resolve-fill::after {
+.resolve-line::before {
 
   content: "";
 
   position: absolute;
 
-  top: 0;
+  left: 6px;
 
-  left: -40px;
+  top: 50%;
 
-  width: 40px;
+  width: 22px;
 
   height: 100%;
 
-  background: rgba(255,255,255,0.4);
+  transform: translateY(-50%);
 
-  filter: blur(4px);
+  border-radius: 20px;
 
-  animation: liquidMove 1.2s linear infinite;
+  background: linear-gradient(
+
+    90deg,
+
+    rgba(255,255,255,0),
+
+    rgba(255,255,255,0.9),
+
+    rgba(255,255,255,0)
+
+  );
+
+  filter: blur(2px);
+
+  animation: liquidMove 2.4s ease-in-out infinite;
 
 }
 
-/* 🔥 MOVIMENTO */
+/* 🔥 MOVIMENTO LIQUIDO */
 
 @keyframes liquidMove {
 
   0% {
 
-    left: -40px;
+    transform:
+
+      translateY(-50%)
+
+      translateX(0px)
+
+      scaleX(1);
+
+    opacity: 0.6;
+
+  }
+
+  50% {
+
+    transform:
+
+      translateY(-50%)
+
+      translateX(12px)
+
+      scaleX(1.4);
+
+    opacity: 1;
 
   }
 
   100% {
 
-    left: 100%;
+    transform:
 
-  }
+      translateY(-50%)
 
-}
+      translateX(0px)
 
-@keyframes liquidFlow {
+      scaleX(1);
 
-  0% {
-
-    background-position: 0% 0%;
-
-  }
-
-  100% {
-
-    background-position: 200% 0%;
+    opacity: 0.6;
 
   }
 
@@ -572,10 +563,6 @@ body {
   position: absolute;
 
   left: 0;
-
-  top: -23px;
-
-  z-index: 2;
 
   transition:
 
@@ -797,13 +784,7 @@ body {
 
       <!-- LINEA -->
 
-<div class="resolve-line">
-
-  <!-- LIQUIDO -->
-
-  <div id="resolveFill" class="resolve-fill"></div>
-
-</div>
+      <div class="resolve-line"></div>
 
       <!-- CHECK -->
 
@@ -957,34 +938,17 @@ window.sendFeedback = async function () {
 
 };
 
-/* 🔥 CONTROLLO CONTINUO RISOLUZIONE */
+/* 🔥 CONTROLLO FEEDBACK RISOLTO */
 
-let lastResolvedValue = null;
+window.addEventListener("storage", (event) => {
 
-setInterval(() => {
-
-  const currentValue = localStorage.getItem(
-
-    "feedbackResolved"
-
-  );
-
-  if (
-
-    currentValue &&
-
-    currentValue !== lastResolvedValue
-
-  ) {
-
-    lastResolvedValue = currentValue;
+  if (event.key === "feedbackResolved") {
 
     startResolveAnimation();
 
   }
 
-}, 500);
-
+});
 
 /* 🔥 AVVIO ANIMAZIONE */
 
@@ -998,23 +962,15 @@ function startResolveAnimation() {
 
     document.getElementById("resolveCheck");
 
-  const fill =
+  if (!logo || !check) return;
 
-    document.getElementById("resolveFill");
-
-  if (!logo || !check || !fill) return;
-
-  /* 🔥 RIEMPIE LA LINEA */
-
-  fill.style.width = "100%";
-
-  /* 🔥 MUOVE IL LOGO */
+  /* 🔥 MOVIMENTO */
 
   logo.style.transform =
 
     "translateX(230px)";
 
-  /* 🔥 ATTIVA CHECK */
+  /* 🔥 CHECK */
 
   setTimeout(() => {
 
@@ -1022,7 +978,7 @@ function startResolveAnimation() {
 
   }, 1800);
 
-  /* 🔥 EVAPORA LOGO */
+  /* 🔥 EVAPORAZIONE */
 
   setTimeout(() => {
 
