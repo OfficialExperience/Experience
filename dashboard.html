@@ -941,21 +941,11 @@ const businessID = params.get("business");
 
 window.deleteFeedback = async function(id) {
 
-  /* 🔥 SALVA EVENTO RISOLUZIONE */
-
-  localStorage.setItem(
-
-    "feedbackResolved",
-
-    Date.now()
-
-  );
-
-  /* 🔥 ELIMINA COMMENTO */
+  /* 🔥 SEGNA FEEDBACK COME RISOLTO */
 
   await updateDoc(doc(db, "feedback", id), {
 
-    text: ""
+    resolved: true
 
   });
 
