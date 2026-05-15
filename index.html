@@ -476,7 +476,7 @@ body {
 
   top: 0;
 
-  width: 8%;
+  width: 12px;
 
   height: 100%;
 
@@ -510,7 +510,9 @@ body {
 
   position: absolute;
 
-  left: 0;
+  left: -8px;
+
+  z-index:2;
 
   transition:
 
@@ -764,7 +766,23 @@ body {
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-import { getFirestore, collection, addDoc, serverTimestamp } 
+import {
+
+  getFirestore,
+
+  collection,
+
+  addDoc,
+
+  serverTimestamp,
+
+  query,
+
+  where,
+
+  onSnapshot
+
+}
 
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -866,7 +884,7 @@ window.sendFeedback = async function () {
 
   try {
 
-    await addDoc(collection(db, "feedback"), {
+    const docRef = await addDoc(collection(db, "feedback"), {
 
       text: text,
 
@@ -876,6 +894,8 @@ window.sendFeedback = async function () {
 
       businessId: businessId, // 🔥 AGGIUNTO
 
+      resolved: false,
+
       timestamp: serverTimestamp()
 
     });
@@ -883,6 +903,8 @@ window.sendFeedback = async function () {
     document.getElementById("screen2").style.display = "none";
 
     document.getElementById("thankYou").style.display = "flex";
+
+    listenResolution(docRef.id);
 
   } catch (e) {
 
@@ -892,47 +914,39 @@ window.sendFeedback = async function () {
 
 };
 
-/* 🔥 CONTROLLO FEEDBACK RISOLTO */
+/* 🔥 ASCOLTA RISOLUZIONE */
 
-let lastResolved =
+function listenResolution(feedbackId) {
 
-  localStorage.getItem("feedbackResolved");
+  const q = query(
 
-let animationStarted = false;
+    collection(db, "feedback"),
 
-setInterval(() => {
+    where("__name__", "==", feedbackId)
 
-  const currentResolved =
+  );
 
-    localStorage.getItem("feedbackResolved");
+  onSnapshot(q, (snapshot) => {
 
-  if (
+    snapshot.forEach((docSnap) => {
 
-    currentResolved &&
+      const data = docSnap.data();
 
-    currentResolved !== lastResolved &&
+      if (data.resolved === true) {
 
-    !animationStarted
+        startResolveAnimation();
 
-  ) {
+      }
 
-    lastResolved = currentResolved;
+    });
 
-    animationStarted = true;
+  });
 
-    startResolveAnimation();
-
-  }
-
-}, 500);
+}
 
 /* 🔥 AVVIO ANIMAZIONE */
 
 function startResolveAnimation() {
-
-  const logo =
-
-    document.getElementById("movingLogo");
 
   const check =
 
@@ -942,65 +956,23 @@ function startResolveAnimation() {
 
     document.getElementById("resolveFill");
 
-  if (!logo || !check || !fill) return;
+  if (!check || !fill) return;
 
-  /* 🔥 RESET */
+  /* 🔥 RIEMPIE LINEA */
 
-  fill.style.transition = "none";
+  fill.style.width = "100%";
 
-  fill.style.width = "0%";
-
-  logo.style.transition = "none";
-
-  logo.style.transform = "translateX(0px)";
-
-  check.classList.remove("active");
-
-  /* 🔥 FORZA REFRESH BROWSER */
-
-  void fill.offsetWidth;
-
-  /* 🔥 RIATTIVA TRANSIZIONI */
-
-  fill.style.transition =
-
-    "width 2.2s cubic-bezier(.22,.61,.36,1)";
-
-  logo.style.transition =
-
-    "transform 2.2s cubic-bezier(.22,.61,.36,1), opacity 1s ease";
-
-  /* 🔥 PARTENZA ANIMAZIONE */
-
-  setTimeout(() => {
-
-    fill.style.width = "92%";
-
-    logo.style.transform =
-
-      "translateX(230px)";
-
-  }, 50);
-
-  /* 🔥 CHECK */
+  /* 🔥 ACCENDE CHECK */
 
   setTimeout(() => {
 
     check.classList.add("active");
 
-  }, 2000);
-
-  /* 🔥 EVAPORAZIONE */
-
-  setTimeout(() => {
-
-    logo.classList.add("logo-evaporate");
-
-  }, 2300);
+  }, 1800);
 
 }
 
-  
+
 </script>
 
 </body>
