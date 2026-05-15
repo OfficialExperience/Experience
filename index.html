@@ -479,19 +479,27 @@ body {
 
     90deg,
 
-    #31C859,
+    #31C859 0%,
 
-    #63E283,
+    #63E283 50%,
 
-    #31C859
+    #31C859 100%
 
   );
 
+  background-size: 200% 100%;
+
+  animation: liquidFlow 1.2s linear infinite;
+
   transition: width 2.2s cubic-bezier(.22,.61,.36,1);
 
-  position: relative;
+  position: absolute;
 
-  overflow: hidden;
+  left: 0;
+
+  top: 0;
+
+  z-index: 1;
 
 }
 
@@ -537,6 +545,22 @@ body {
 
 }
 
+@keyframes liquidFlow {
+
+  0% {
+
+    background-position: 0% 0%;
+
+  }
+
+  100% {
+
+    background-position: 200% 0%;
+
+  }
+
+}
+
 /* 🔥 LOGO */
 
 .moving-logo {
@@ -548,6 +572,10 @@ body {
   position: absolute;
 
   left: 0;
+
+  top: -23px;
+
+  z-index: 2;
 
   transition:
 
@@ -929,17 +957,34 @@ window.sendFeedback = async function () {
 
 };
 
-/* 🔥 CONTROLLO FEEDBACK RISOLTO */
+/* 🔥 CONTROLLO CONTINUO RISOLUZIONE */
 
-window.addEventListener("storage", (event) => {
+let lastResolvedValue = null;
 
-  if (event.key === "feedbackResolved") {
+setInterval(() => {
+
+  const currentValue = localStorage.getItem(
+
+    "feedbackResolved"
+
+  );
+
+  if (
+
+    currentValue &&
+
+    currentValue !== lastResolvedValue
+
+  ) {
+
+    lastResolvedValue = currentValue;
 
     startResolveAnimation();
 
   }
 
-});
+}, 500);
+
 
 /* 🔥 AVVIO ANIMAZIONE */
 
