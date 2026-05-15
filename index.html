@@ -474,7 +474,7 @@ body {
 
   position: absolute;
 
-  left: -2px;
+  left: -4px;
 
   top: 50%;
 
@@ -488,7 +488,7 @@ body {
 
   background: linear-gradient(
 
-  90deg,
+     90deg,
 
   rgba(98, 0, 255, 0),
 
@@ -500,7 +500,29 @@ body {
 
   filter: blur(2px);
 
-  animation: liquidMove 2.4s ease-in-out infinite;
+  opacity: 0.9;
+
+  transition:
+
+    transform 2.2s cubic-bezier(.22,.61,.36,1),
+
+    opacity 0.6s ease;
+
+}
+
+/* 🔥 LIQUIDO IN MOVIMENTO */
+
+.resolve-line.active::before {
+
+  transform:
+
+    translateY(-50%)
+
+    translateX(210px)
+
+    scaleX(1.5);
+
+  opacity: 1;
 
 }
 
@@ -962,13 +984,19 @@ function startResolveAnimation() {
 
     document.getElementById("resolveCheck");
 
+    const line = document.querySelector(".resolve-line");
+
   if (!logo || !check) return;
 
-  /* 🔥 MOVIMENTO */
+  /* 🔥 LIQUIDO */
 
-  logo.style.transform =
+line.classList.add("active");
 
-    "translateX(230px)";
+/* 🔥 LOGO */
+
+logo.style.transform =
+
+  "translateX(230px)";
 
   /* 🔥 CHECK */
 
