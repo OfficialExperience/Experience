@@ -894,9 +894,11 @@ window.sendFeedback = async function () {
 
 /* 🔥 CONTROLLO FEEDBACK RISOLTO */
 
-/* 🔥 CONTROLLO CONTINUO RISOLUZIONE */
+let lastResolved =
 
-let lastResolved = localStorage.getItem("feedbackResolved");
+  localStorage.getItem("feedbackResolved");
+
+let animationStarted = false;
 
 setInterval(() => {
 
@@ -908,11 +910,15 @@ setInterval(() => {
 
     currentResolved &&
 
-    currentResolved !== lastResolved
+    currentResolved !== lastResolved &&
+
+    !animationStarted
 
   ) {
 
     lastResolved = currentResolved;
+
+    animationStarted = true;
 
     startResolveAnimation();
 
@@ -938,17 +944,45 @@ function startResolveAnimation() {
 
   if (!logo || !check || !fill) return;
 
-  /* 🔥 RIEMPIE LA LINEA */
+  /* 🔥 RESET */
 
-  fill.style.width = "92%";
+  fill.style.transition = "none";
 
-  /* 🔥 MOVIMENTO LOGO */
+  fill.style.width = "0%";
 
-  logo.style.transform =
+  logo.style.transition = "none";
 
-    "translateX(230px)";
+  logo.style.transform = "translateX(0px)";
 
-  /* 🔥 ATTIVA CHECK */
+  check.classList.remove("active");
+
+  /* 🔥 FORZA REFRESH BROWSER */
+
+  void fill.offsetWidth;
+
+  /* 🔥 RIATTIVA TRANSIZIONI */
+
+  fill.style.transition =
+
+    "width 2.2s cubic-bezier(.22,.61,.36,1)";
+
+  logo.style.transition =
+
+    "transform 2.2s cubic-bezier(.22,.61,.36,1), opacity 1s ease";
+
+  /* 🔥 PARTENZA ANIMAZIONE */
+
+  setTimeout(() => {
+
+    fill.style.width = "92%";
+
+    logo.style.transform =
+
+      "translateX(230px)";
+
+  }, 50);
+
+  /* 🔥 CHECK */
 
   setTimeout(() => {
 
@@ -966,6 +1000,7 @@ function startResolveAnimation() {
 
 }
 
+  
 </script>
 
 </body>
