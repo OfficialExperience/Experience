@@ -279,13 +279,14 @@ h1 {
 }
 
 /* 🔥 DELETE */
+
 .delete-btn {
 
   width: 42px;
 
   height: 42px;
 
-  background: #31C859;
+  background: #4CAF50;
 
   color: white;
 
@@ -301,21 +302,13 @@ h1 {
 
   font-size: 20px;
 
-  transition: all 0.25s ease;
-
-  box-shadow:
-
-    0 4px 12px rgba(49,200,89,0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
 
 }
 
 .delete-btn:hover {
 
-  transform: scale(1.12);
-
-  box-shadow:
-
-    0 6px 18px rgba(49,200,89,0.45);
+  transform: scale(1.2);
 
 }
 
@@ -941,21 +934,11 @@ const businessID = params.get("business");
 
 window.deleteFeedback = async function(id) {
 
-  /* 🔥 SALVA EVENTO RISOLUZIONE */
-
-  localStorage.setItem(
-
-    "feedbackResolved",
-
-    Date.now()
-
-  );
-
-  /* 🔥 ELIMINA COMMENTO */
-
   await updateDoc(doc(db, "feedback", id), {
 
-    text: ""
+    text: "",
+
+    resolved: true
 
   });
 
@@ -1693,6 +1676,7 @@ if (
 ) {
 
   insights.push(
+
     "Alcuni clienti stanno segnalando problemi legati alla pulizia."
 
   );
