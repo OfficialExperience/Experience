@@ -400,9 +400,7 @@ body {
 
 }
 
-/* 🔥 THANK YOU */
-
-.thank-wrapper {
+.thank-box {
 
   display: flex;
 
@@ -414,254 +412,55 @@ body {
 
 .thank-title {
 
-  font-size: 28px;
+  font-size: 24px;
 
   font-weight: bold;
 
 }
 
-.thank-subtitle {
+.resolved-text {
 
-  margin-top: 16px;
+  margin-top: 18px;
 
-  font-size: 18px;
+  font-size: 15px;
 
   color: #666;
 
-}
+  text-align: center;
 
-/* 🔥 CONTAINER */
+  max-width: 300px;
 
-.resolve-container {
-
-  margin-top: 45px;
-
-  width: 320px;
-
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
+  line-height: 1.5;
 
 }
 
-/* 🔥 LINEA */
+.resolved-check {
 
-.resolve-line {
+  margin-top: 22px;
 
-  width: 220px;
+  font-size: 52px;
 
-  height: 5px;
+  opacity: 0.25;
 
-  background: #E5E5E5;
-
-  border-radius: 20px;
-
-  position: relative;
-
-  overflow: hidden;
+  transition: all 0.6s ease;
 
 }
 
-/* 🔥 GOCCIA LIQUIDA */
+/* 🔥 CHECK ACCESO */
 
-.resolve-line::before {
-
-  content: "";
-
-  position: absolute;
-
-  left: -30px;
-
-  top: 50%;
-
-  width: 40px;
-
-  height: 100%;
-
-  transform: translateY(-50%);
-
-  border-radius: 20px;
-
-  background: linear-gradient(
-
-    90deg,
-
-    rgba(98, 0, 255, 0),
-
-    rgba(98, 0, 255, 0.95),
-
-    rgba(98, 0, 255, 0)
-
-  );
-
-  filter: blur(3px);
-
-  opacity: 0;
-
-}
-
-/* 🔥 LIQUIDO IN MOVIMENTO */
-
-.resolve-line.active::before {
-
-  opacity: 1;
-
-  animation:
-
-    liquidFlow 2.4s ease forwards,
-
-    liquidPulse 1.2s ease-in-out infinite;
-
-}
-
-/* 🔥 FLUSSO LIQUIDO */
-
-@keyframes liquidFlow {
-
-  0% {
-
-    transform:
-
-      translateY(-50%)
-
-      translateX(0px)
-
-      scaleX(1);
-
-  }
-
-  100% {
-
-    transform:
-
-      translateY(-50%)
-
-      translateX(250px)
-
-      scaleX(1.6);
-
-  }
-
-}
-
-/* 🔥 EFFETTO VIVO */
-
-@keyframes liquidPulse {
-
-  0% {
-
-    filter: blur(2px);
-
-  }
-
-  50% {
-
-    filter: blur(5px);
-
-  }
-
-  100% {
-
-    filter: blur(2px);
-
-  }
-
-}
-
-/* 🔥 MOVIMENTO LIQUIDO */
-
-@keyframes liquidMove {
-
-  0% {
-
-    transform:
-
-      translateY(-50%)
-
-      translateX(0px)
-
-      scaleX(1);
-
-    opacity: 0.6;
-
-  }
-
-  50% {
-
-    transform:
-
-      translateY(-50%)
-
-      translateX(12px)
-
-      scaleX(1.4);
-
-    opacity: 1;
-
-  }
-
-  100% {
-
-    transform:
-
-      translateY(-50%)
-
-      translateX(0px)
-
-      scaleX(1);
-
-    opacity: 0.6;
-
-  }
-
-}
-
-/* 🔥 LOGO */
-
-.moving-logo {
-
-  width: 54px;
-
-  height: 54px;
-
-  position: absolute;
-
-  left: 0;
-
-  z-index: 2;
-
-}
-
-/* 🔥 CHECK */
-
-.resolve-check {
-
-  position: absolute;
-
-  right: -8px;
-
-  font-size: 38px;
-
-  opacity: 0.5;
-
-  transition: all 0.5s ease;
-
-}
-
-/* 🔥 ATTIVO */
-
-.resolve-check.active {
+.resolved-check.active {
 
   opacity: 1;
 
   transform: scale(1.15);
 
-}
+  filter:
 
+    drop-shadow(0 0 10px #4CAF50)
+
+    drop-shadow(0 0 20px #4CAF50);
+
+}
 
 </style>
 
@@ -773,7 +572,7 @@ body {
 
 <div id="thankYou">
 
-  <div class="thank-wrapper">
+  <div class="thank-box">
 
     <div class="thank-title">
 
@@ -781,45 +580,15 @@ body {
 
     </div>
 
-    <div class="thank-subtitle">
+    <div class="resolved-text">
 
-      Il tuo feedback verrà risolto
+      Quando ✅ si illuminerà il tuo feedback è stato risolto
 
     </div>
 
-    <!-- 🔥 ANIMAZIONE -->
+    <div id="resolvedCheck" class="resolved-check">
 
-    <div class="resolve-container">
-
-      <!-- LOGO -->
-
-      <img
-
-        src="logo.png"
-
-        id="movingLogo"
-
-        class="moving-logo"
-
-      >
-
-      <!-- LINEA -->
-
-      <div class="resolve-line"></div>
-
-      <!-- CHECK -->
-
-      <div
-
-        id="resolveCheck"
-
-        class="resolve-check"
-
-      >
-
-        ✅
-
-      </div>
+      ✅
 
     </div>
 
@@ -831,7 +600,23 @@ body {
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-import { getFirestore, collection, addDoc, serverTimestamp } 
+import {
+
+  getFirestore,
+
+  collection,
+
+  addDoc,
+
+  serverTimestamp,
+
+  onSnapshot,
+
+  query,
+
+  where
+
+}
 
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
@@ -858,8 +643,6 @@ const allowedBusinesses = [
   "unime_messina",
 
   "unime_prova1",
-
-  "demo_experience",
 
 ];
 
@@ -901,6 +684,8 @@ let sceltaUtente = "";
 
 let tagSelezionato = "";
 
+let feedbackDocId = null;
+
 /* STEP 1 */
 
 window.nextStep = function (scelta) {
@@ -933,7 +718,7 @@ window.sendFeedback = async function () {
 
   try {
 
-    await addDoc(collection(db, "feedback"), {
+    const docRef = await addDoc(collection(db, "feedback"), {
 
       text: text,
 
@@ -947,6 +732,38 @@ window.sendFeedback = async function () {
 
     });
 
+    feedbackDocId = docRef.id;
+
+/* 🔥 ASCOLTA RISOLUZIONE */
+
+const feedbackQuery = query(
+
+  collection(db, "feedback"),
+
+  where("__name__", "==", feedbackDocId)
+
+);
+
+onSnapshot(feedbackQuery, (snapshot) => {
+
+  snapshot.forEach((doc) => {
+
+    const data = doc.data();
+
+    if (data.resolved === true) {
+
+      document
+
+        .getElementById("resolvedCheck")
+
+        .classList.add("active");
+
+    }
+
+  });
+
+});
+
     document.getElementById("screen2").style.display = "none";
 
     document.getElementById("thankYou").style.display = "flex";
@@ -958,44 +775,6 @@ window.sendFeedback = async function () {
   }
 
 };
-
-/* 🔥 CONTROLLO FEEDBACK RISOLTO */
-
-window.addEventListener("storage", (event) => {
-
-  if (event.key === "feedbackResolved") {
-
-    startResolveAnimation();
-
-  }
-
-});
-
-function startResolveAnimation() {
-
-  const check =
-
-    document.getElementById("resolveCheck");
-
-  const line =
-
-    document.querySelector(".resolve-line");
-
-  if (!check || !line) return;
-
-  /* 🔥 ATTIVA LIQUIDO */
-
-  line.classList.add("active");
-
-  /* 🔥 CHECK */
-
-  setTimeout(() => {
-
-    check.classList.add("active");
-
-  }, 1800);
-
-}
 
 </script>
 
