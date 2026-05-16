@@ -580,19 +580,21 @@ body {
 
     </div>
 
-    <div class="resolved-text">
+    <div id="resolutionArea" style="display:none;">
 
-      Quando ✅ si illuminerà il tuo feedback è stato risolto
+  <div class="resolved-text">
 
-    </div>
-
-    <div id="resolvedCheck" class="resolved-check">
-
-      ✅
-
-    </div>
+    Quando ✅ si illuminerà il tuo feedback è stato risolto
 
   </div>
+
+  <div id="resolvedCheck" class="resolved-check">
+
+    ✅
+
+  </div>
+
+</div>
 
 </div>
 
@@ -714,7 +716,13 @@ window.selectTag = function(tag) {
 
 window.sendFeedback = async function () {
 
-  const text = document.getElementById("feedbackText").value;
+  const text = document
+
+  .getElementById("feedbackText")
+
+  .value
+
+  .trim();
 
   try {
 
@@ -763,6 +771,18 @@ onSnapshot(feedbackQuery, (snapshot) => {
   });
 
 });
+
+/* 🔥 MOSTRA CHECK SOLO CON COMMENTO */
+
+if (text !== "") {
+
+  document
+
+    .getElementById("resolutionArea")
+
+    .style.display = "block";
+
+}
 
     document.getElementById("screen2").style.display = "none";
 
