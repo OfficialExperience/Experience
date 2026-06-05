@@ -470,9 +470,83 @@ body {
 
 <div class="container">
 
+  <!-- SCHERMATA LINGUA -->
+
+<div id="languageScreen">
+
+  <div class="logo-wrapper">
+
+    <img src="logo.png" class="logo">
+
+    <div class="shine"></div>
+
+  </div>
+
+  <div class="question"
+
+       style="
+
+       position:relative;
+
+       top:auto;
+
+       left:auto;
+
+       transform:none;
+
+       opacity:1;
+
+       margin-top:30px;
+
+       animation:none;">
+
+    Scegli la tua lingua<br>
+
+    Choose your language
+
+  </div>
+
+  <div
+
+    style="
+
+    margin-top:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:15px;">
+
+    <div class="card" onclick="setLanguage('it')">
+
+      <span style="text-align:center;width:100%;">
+
+        Italiano
+
+      </span>
+
+    </div>
+
+    <div class="card" onclick="setLanguage('en')">
+
+      <span style="text-align:center;width:100%;">
+
+        English
+
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
 <!-- SCHERMATA 1 -->
 
-<div id="screen1">
+<div id="screen1" class="hidden">
 
   <div class="logo-wrapper fade-out">
 
@@ -690,7 +764,45 @@ let tagSelezionato = "";
 
 let feedbackDocId = null;
 
+let currentLanguage = "it";
+
 /* STEP 1 */
+
+window.setLanguage = function(lang) {
+
+  currentLanguage = lang;
+
+  document
+
+    .getElementById("languageScreen")
+
+    .style.display = "none";
+
+  document
+
+    .getElementById("screen1")
+
+    .classList.remove("hidden");
+
+  if(lang === "en") {
+
+    document.querySelector(".question").innerHTML =
+
+      "Experience today?";
+
+    const cards =
+
+      document.querySelectorAll(".card span");
+
+    cards[0].innerText = "I like it";
+
+    cards[1].innerText = "Average";
+
+    cards[2].innerText = "I don't like it";
+
+  }
+
+};
 
 window.nextStep = function (scelta) {
 
