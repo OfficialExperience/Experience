@@ -500,30 +500,6 @@ body {
 
   </div>
 
-  /* SCRITTURA AUTOMATICA */
-
-const textToType = "Scegli la tua lingua";
-
-const typingElement = document.getElementById("typingText");
-
-let i = 0;
-
-function typeWriter() {
-
-  if (i < textToType.length) {
-
-    typingElement.textContent += textToType.charAt(i);
-
-    i++;
-
-    setTimeout(typeWriter, 80);
-
-  }
-
-}
-
-setTimeout(typeWriter, 1800);
-
   <div id="languageTitle" class="language-title">
 
   <span id="typingText"></span>
@@ -845,6 +821,30 @@ if (text !== "") {
   }
 
 };
+
+  /* SCRITTURA AUTOMATICA */
+
+const textToType = "Scegli la tua lingua";
+
+const typingElement = document.getElementById("typingText");
+
+let i = 0;
+
+function typeWriter() {
+
+  if (i < textToType.length) {
+
+    typingElement.textContent += textToType.charAt(i);
+
+    i++;
+
+    setTimeout(typeWriter, 80);
+
+  }
+
+}
+
+setTimeout(typeWriter, 1800);
 
 </script>
 
