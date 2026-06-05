@@ -142,10 +142,6 @@ body {
 
   font-weight: bold;
 
-  animation: fadeIn 1s ease forwards;
-
-  animation-delay: 2.3s;
-
 }
 
 @keyframes fadeIn {
@@ -162,19 +158,11 @@ body {
 
   top: -80%;
 
-  width: 100%;
-
-  display: flex;
-
   flex-direction: column;
 
   align-items: center;
 
   opacity: 0;
-
-  animation: fadeIn 1s ease forwards;
-
-  animation-delay: 2.8s;
 
 }
 
@@ -462,125 +450,63 @@ body {
 
 }
 
-/* INTRO */
+#welcomeScreen{
 
-#introScreen{
-
-  position:fixed;
+  position:absolute;
 
   inset:0;
 
-  background:white;
-
   display:flex;
+
+  flex-direction:column;
 
   justify-content:center;
 
   align-items:center;
 
-  z-index:9999;
+  background:white;
 
-}
-
-.intro-logo-wrapper{
-
-  position:relative;
-
-  display:inline-block;
-
-}
-
-.intro-logo{
-
-  width:140px;
+  z-index:999;
 
   opacity:0;
 
-  animation:introFade 0.8s ease forwards;
+  animation:fadeIn 1s ease forwards;
+
+  animation-delay:2.3s;
 
 }
 
-@keyframes introFade{
+.welcome-title{
 
-  from{
+  font-size:32px;
 
-    opacity:0;
+  font-weight:bold;
 
-    transform:scale(0.9);
-
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:scale(1);
-
-  }
+  margin-bottom:40px;
 
 }
 
-.intro-shine{
+.start-btn{
 
-  position:absolute;
+  width:85%;
 
-  top:0;
+  max-width:320px;
 
-  left:-100%;
+  padding:18px;
 
-  width:100%;
+  border:none;
 
-  height:100%;
+  border-radius:20px;
 
-  background:linear-gradient(
+  background:black;
 
-    120deg,
+  color:white;
 
-    transparent 0%,
+  font-size:22px;
 
-    rgba(255,255,255,0.9) 50%,
+  font-weight:bold;
 
-    transparent 100%
-
-  );
-
-  animation:introShine 1.6s ease forwards;
-
-  animation-delay:0.5s;
-
-}
-
-@keyframes introShine{
-
-  from{
-
-    left:-100%;
-
-  }
-
-  to{
-
-    left:100%;
-
-  }
-
-}
-
-.intro-hide{
-
-  animation:introHide 0.7s ease forwards;
-
-}
-
-@keyframes introHide{
-
-  to{
-
-    opacity:0;
-
-    transform:scale(1.1);
-
-  }
+  cursor:pointer;
 
 }
 
@@ -590,25 +516,23 @@ body {
 
 <body>
 
-  <!-- INTRO -->
+<div class="container">
 
-<div id="introScreen">
+  <div id="welcomeScreen">
 
-  <div class="intro-logo-wrapper">
+  <div class="welcome-title">
 
-    <img src="logo.png" class="intro-logo">
-
-    <div class="intro-shine"></div>
+    Benvenuto
 
   </div>
 
+  <button class="start-btn" onclick="startExperience()">
+
+    Iniziamo
+
+  </button>
+
 </div>
-
-<!-- TUTTO IL RESTO DEL SITO -->
-
-<div id="appContent" style="display:none;">
-
-<div class="container">
 
 <!-- SCHERMATA 1 -->
 
@@ -622,13 +546,13 @@ body {
 
   </div>
 
-  <div class="question">
+  <div id="questionBlock" class="question">
 
     Esperienza oggi ?
 
   </div>
 
-  <div class="cards">
+  <div id="cardsBlock" class="cards">
 
     <div class="card" onclick="nextStep('Mi piace')">
 
@@ -830,6 +754,20 @@ let tagSelezionato = "";
 
 let feedbackDocId = null;
 
+window.startExperience = function(){
+
+  document.getElementById("welcomeScreen").remove();
+
+  document.getElementById("questionBlock")
+
+    .style.animation = "fadeIn 1s ease forwards";
+
+  document.getElementById("cardsBlock")
+
+    .style.animation = "fadeIn 1s ease forwards";
+
+}
+
 /* STEP 1 */
 
 window.nextStep = function (scelta) {
@@ -938,29 +876,7 @@ if (text !== "") {
 
 };
 
-/* INTRO -> SCREEN 0 */
-
-setTimeout(() => {
-
-  document
-
-    .getElementById("introScreen")
-
-    .classList.add("intro-hide");
-
-  setTimeout(() => {
-
-    document.getElementById("introScreen").remove();
-
-    document.getElementById("appContent").style.display = "block";
-
-  }, 700);
-
-}, 2500);
-
 </script>
-
-</div>
 
 </body>
 
