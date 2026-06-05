@@ -498,7 +498,7 @@ body {
 
 <div class="container">
 
-  <div id="screenLanguage">
+  <div id="screenLanguage" class="hidden">
 
   <div class="language-question">
 
@@ -526,7 +526,7 @@ body {
 
 <!-- SCHERMATA 1 -->
 
-<div id="screen1" class="hidden">
+<div id="screen1"
 
   <div class="logo-wrapper fade-out">
 
@@ -748,7 +748,7 @@ window.selectLanguage = function(language) {
 
   document.getElementById("screenLanguage").style.display = "none";
 
-  document.getElementById("screen1").classList.remove("hidden");
+  document.getElementById("screen1").style.display = "block";
 
 };
 
@@ -883,6 +883,16 @@ function typeWriter() {
 }
 
 setTimeout(typeWriter, 1800);
+
+setTimeout(() => {
+
+  document.getElementById("screen1").style.display = "none";
+
+  document.getElementById("screenLanguage")
+
+    .classList.remove("hidden");
+
+}, 2300);
 
 </script>
 
