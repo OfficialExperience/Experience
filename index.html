@@ -44,6 +44,16 @@ body {
 
 }
 
+.language-question {
+
+  font-size: 26px;
+
+  font-weight: bold;
+
+  margin-bottom: 40px;
+
+}
+
 /* LOGO */
 
 .logo-wrapper {
@@ -488,9 +498,35 @@ body {
 
 <div class="container">
 
+  <div id="screenLanguage">
+
+  <div class="language-question">
+
+    <span id="typingText"></span>
+
+  </div>
+
+  <div class="cards">
+
+    <div class="card" onclick="selectLanguage('it')">
+
+      <span>🇮🇹 Italiano</span>
+
+    </div>
+
+    <div class="card" onclick="selectLanguage('en')">
+
+      <span>🇬🇧 English</span>
+
+    </div>
+
+  </div>
+
+</div>
+
 <!-- SCHERMATA 1 -->
 
-<div id="screen1">
+<div id="screen1" class="hidden">
 
   <div class="logo-wrapper fade-out">
 
@@ -499,12 +535,6 @@ body {
     <div class="shine"></div>
 
   </div>
-
-  <div id="languageTitle" class="language-title">
-
-  <span id="typingText"></span>
-
-</div>
 
   <div class="question">
 
@@ -713,6 +743,14 @@ let sceltaUtente = "";
 let tagSelezionato = "";
 
 let feedbackDocId = null;
+
+window.selectLanguage = function(language) {
+
+  document.getElementById("screenLanguage").style.display = "none";
+
+  document.getElementById("screen1").classList.remove("hidden");
+
+};
 
 /* STEP 1 */
 
