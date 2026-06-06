@@ -508,25 +508,46 @@ body {
 
   transform:translate(-50%,-50%);
 
-  width:85%;
+  width:120px;
 
-  max-width:320px;
-
-  padding:18px;
+  height:120px;
 
   border:none;
 
-  border-radius:20px;
+  border-radius:50%;
 
-  background:black;
-
-  color:white;
-
-  font-size:22px;
-
-  font-weight:bold;
+  background:white;
 
   cursor:pointer;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  box-shadow:0 4px 15px rgba(0,0,0,0.15);
+
+  transition:transform .2s ease;
+
+}
+
+.start-btn:hover{
+
+  transform:translate(-50%,-50%) scale(1.05);
+
+}
+
+.start-flag{
+
+  width:70px;
+
+  height:70px;
+
+  object-fit:contain;
+
+  pointer-events:none;
+
 }
 
 </style>
@@ -545,11 +566,11 @@ body {
 
   </div>
 
-  <button class="start-btn" onclick="startExperience()">
+<button class="start-btn" onclick="startExperience()">
 
-    Iniziamo
+  <img src="bandiera.png" class="start-flag">
 
-  </button>
+</button>
 
 </div>
 
