@@ -498,6 +498,24 @@ body {
 
 }
 
+.welcome-title::after{
+
+  content:"|";
+
+  animation:blink .8s infinite;
+
+}
+
+@keyframes blink{
+
+  50%{
+
+    opacity:0;
+
+  }
+
+}
+
 .start-btn{
 
   position:absolute;
@@ -560,7 +578,7 @@ body {
 
   <div id="welcomeScreen">
 
-  <div class="welcome-title">
+  <div class="welcome-title" id="languageTitle">
 
     Scegli la tua lingua
 
@@ -807,6 +825,64 @@ window.startExperience = function(){
     .style.animation = "fadeIn 1s ease forwards";
 
 }
+
+const texts = [
+
+  "Scegli la tua lingua",
+
+  "Choose your language"
+
+];
+
+let textIndex = 0;
+
+let charIndex = 0;
+
+let deleting = false;
+
+function typeEffect() {
+
+  const el = document.getElementById("languageTitle");
+
+  const currentText = texts[textIndex];
+
+  if (!deleting) {
+
+    el.textContent = currentText.substring(0, charIndex + 1);
+
+    charIndex++;
+
+    if (charIndex === currentText.length) {
+
+      deleting = true;
+
+      setTimeout(typeEffect, 1500);
+
+      return;
+
+    }
+
+  } else {
+
+    el.textContent = currentText.substring(0, charIndex - 1);
+
+    charIndex--;
+
+    if (charIndex === 0) {
+
+      deleting = false;
+
+      textIndex = (textIndex + 1) % texts.length;
+
+    }
+
+  }
+
+  setTimeout(typeEffect, deleting ? 50 : 90);
+
+}
+
+setTimeout(typeEffect, 2500);
 
 /* STEP 1 */
 
