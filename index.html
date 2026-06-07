@@ -516,7 +516,7 @@ body {
 
 }
 
-.start-btn{
+.flags-container{
 
   position:absolute;
 
@@ -525,6 +525,18 @@ body {
   left:50%;
 
   transform:translate(-50%,-50%);
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:20px;
+
+}
+
+.start-btn{
 
   width:100px;
 
@@ -552,7 +564,7 @@ body {
 
 .start-btn:hover{
 
-  transform:translate(-50%,-50%) scale(1.05);
+  transform:scale(1.05);
 
 }
 
@@ -584,11 +596,15 @@ body {
 
   </div>
 
-<button class="start-btn" onclick="startExperience()">
+<div class="flags-container">
 
-  <img src="bandiera.png" class="start-flag">
+  <button class="start-btn" onclick="startExperience()">
+    <img src="bandiera.png" class="start-flag">
+  </button>
 
-</button>
+  <button class="start-btn" onclick="startExperience()">
+    <img src="bandiera2.png" class="start-flag">
+  </button>
 
 </div>
 
