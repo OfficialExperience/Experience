@@ -44,6 +44,12 @@ body {
 
 }
 
+#screen1{
+
+  display:none;
+
+}
+
 /* LOGO */
 
 .logo-wrapper {
@@ -599,12 +605,18 @@ body {
 <div class="flags-container">
 
   <button class="start-btn" onclick="startExperience()">
+
     <img src="bandiera.png" class="start-flag">
+
   </button>
 
   <button class="start-btn" onclick="startExperience()">
+
     <img src="bandiera2.png" class="start-flag">
+
   </button>
+
+</div>
 
 </div>
 
@@ -832,6 +844,8 @@ window.startExperience = function(){
 
   document.getElementById("welcomeScreen").remove();
 
+  document.getElementById("screen1").style.display = "block";
+
   document.getElementById("questionBlock")
 
     .style.animation = "fadeIn 1s ease forwards";
@@ -841,7 +855,6 @@ window.startExperience = function(){
     .style.animation = "fadeIn 1s ease forwards";
 
 }
-
 const texts = [
 
   "Scegli la tua lingua",
