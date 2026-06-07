@@ -590,13 +590,13 @@ body {
 
   </div>
 
-<button class="start-btn" onclick="startExperience()">
+<button class="start-btn" onclick="setLanguage('it')">
 
   <img src="bandiera.png" class="start-flag">
 
 </button>
 
-<button class="start-btn second-flag">
+<button class="start-btn second-flag" onclick="setLanguage('en')">
 
   <img src="bandiera2.png" class="start-flag">
 
@@ -823,6 +823,107 @@ let sceltaUtente = "";
 let tagSelezionato = "";
 
 let feedbackDocId = null;
+
+let currentLanguage = "it";
+
+const translations = {
+
+  it: {
+
+    question: "Esperienza oggi ?",
+
+    like: "Mi piace",
+
+    ok: "Discreta",
+
+    dislike: "Non mi piace",
+
+    improve: "Cosa possiamo migliorare?",
+
+    cleanliness: "🧼 Pulizia",
+
+    materials: "🧻 Materiali (carta, sapone)",
+
+    repairs: "🔧 Guasti (rotture)",
+
+    comfort: "🛋️ Confort",
+
+    other: "❓ Altro",
+
+    comment: "Commenterai la tua esperienza ?",
+
+    placeholder: "Scrivi qui la tua esperienza...",
+
+    skip: "Non commento",
+
+    thanks: "Grazie per il feedback 😃"
+
+  },
+
+  en: {
+
+    question: "How was your experience today?",
+
+    like: "I liked it",
+
+    ok: "Average",
+
+    dislike: "I didn't like it",
+
+    improve: "What can we improve?",
+
+    cleanliness: "🧼 Cleanliness",
+
+    materials: "🧻 Supplies (paper, soap)",
+
+    repairs: "🔧 Repairs / Damage",
+
+    comfort: "🛋️ Comfort",
+
+    other: "❓ Other",
+
+    comment: "Would you like to comment on your experience?",
+
+    placeholder: "Write your experience here...",
+
+    skip: "No comment",
+
+    thanks: "Thank you for your feedback 😃"
+
+  }
+
+};
+
+window.setLanguage = function(lang){
+
+  currentLanguage = lang;
+
+  const t = translations[lang];
+
+  document.getElementById("questionBlock").textContent = t.question;
+
+  document.querySelectorAll(".card span")[0].textContent = t.like;
+  document.querySelectorAll(".card span")[1].textContent = t.ok;
+  document.querySelectorAll(".card span")[2].textContent = t.dislike;
+
+  document.querySelector("#screenTags .comment-screen").textContent = t.improve;
+
+  document.querySelectorAll(".tag")[0].textContent = t.cleanliness;
+  document.querySelectorAll(".tag")[1].textContent = t.materials;
+  document.querySelectorAll(".tag")[2].textContent = t.repairs;
+  document.querySelectorAll(".tag")[3].textContent = t.comfort;
+  document.querySelectorAll(".tag")[4].textContent = t.other;
+
+  document.querySelector("#screen2 .comment-screen").textContent = t.comment;
+
+  document.getElementById("feedbackText").placeholder = t.placeholder;
+
+  document.querySelector(".skip-btn").textContent = t.skip;
+
+  document.querySelector(".thank-title").textContent = t.thanks;
+
+  startExperience();
+}
 
 window.startExperience = function(){
 
