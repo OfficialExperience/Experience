@@ -444,7 +444,7 @@ h1 {
 
   <div class="box">
 
-    <h3>Oggi</h3>
+    <h3 id="todayTitle">Oggi</h3>
 
     <div class="chart">
 
@@ -484,7 +484,7 @@ h1 {
 
   <div class="box">
 
-    <h3>Settimana</h3>
+    <h3 id="weekTitle">Settimana</h3>
 
     <div class="chart">
 
@@ -526,7 +526,7 @@ h1 {
 
 <div class="full">
 
-  <h3>Anno</h3>
+  <h3 id="yearTitle">Anno</h3>
 
   <div class="chart">
 
@@ -929,6 +929,80 @@ onAuthStateChanged(auth, (user) => {
 const params = new URLSearchParams(window.location.search);
 
 const businessID = params.get("business");
+
+const language = params.get("lang") || "it";
+
+const t = dashboardTranslations[language];
+
+document.querySelector("h1").textContent =
+
+  t.title;
+
+/* 🔥 TRADUZIONI DASHBOARD */
+
+const dashboardTranslations = {
+
+  it: {
+
+    title: "Dashboard Feedback",
+
+    today: "Oggi",
+
+    week: "Settimana",
+
+    year: "Anno",
+
+    insight: "Insight Clienti",
+
+    improve7: "Cosa migliorare (ultimi 7 giorni)",
+
+    historic: "Totale storico",
+
+    ai: "AI",
+
+    totalComments: "Totale commenti visibili:",
+
+    experienceAI: "ExperienceAI"
+
+  },
+
+  en: {
+
+    title: "Feedback Dashboard",
+
+    today: "Today",
+
+    week: "Week",
+
+    year: "Year",
+
+    insight: "Customer Insights",
+
+    improve7: "What to improve (last 7 days)",
+
+    historic: "Historical Total",
+
+    ai: "AI",
+
+    totalComments: "Total visible comments:",
+
+    experienceAI: "ExperienceAI"
+
+  }
+
+};
+
+document.getElementById("todayTitle").textContent =
+
+  t.today;
+
+document.getElementById("weekTitle").textContent =
+
+  t.week;
+
+document.getElementById("yearTitle").textContent =
+
+  t.year;
 
 /* 🔥 ELIMINA COMMENTO */
 
