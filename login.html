@@ -332,21 +332,25 @@ window.login = async function() {
 
     let business = "";
 
-    if (email === "unime@gmail.com") {                      
+    if (email === "unime@gmail.com") {
 
-      business = "unime_messina";
+  business = "unime_messina";
 
-    }
+  language = "it";
+}
 
-     if (email === "unime@prova1.com") {
+if (email === "unime@prova1.com") {
 
-      business = "unime_prova1";
+  business = "unime_messina";
 
-    }
+  language = "en";
+}
 
     if (email === "demo@experience.com") {
 
       business = "demo_experience";
+
+      language = "en";
 
     }
 
@@ -355,9 +359,15 @@ window.login = async function() {
 
     setTimeout(() => {
 
-      window.location.href =
+   window.location.href =
 
-        "dashboard.html?business=" + business;
+  "dashboard.html?business=" +
+
+  business +
+
+  "&lang=" +
+
+  language;
 
     }, 300);
 
